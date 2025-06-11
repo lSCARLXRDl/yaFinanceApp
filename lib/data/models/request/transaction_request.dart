@@ -4,14 +4,14 @@ part 'transaction_request.freezed.dart';
 part 'transaction_request.g.dart';
 
 @freezed
-abstract class TransactionRequest with _$TransactionRequest {
-  const factory TransactionRequest({
+abstract class TransactionRequestDto with _$TransactionRequestDto {
+  const factory TransactionRequestDto({
     required int accountId,
     required int categoryId,
     required String amount,
     required DateTime transactionDate,
     required String? comment
-  }) = _TransactionRequest;
+  }) = _TransactionRequestDto;
 
-  factory TransactionRequest.fromJson(Map<String, Object?> json) => _$TransactionRequestFromJson(json);
+  factory TransactionRequestDto.fromJson(Map<String, Object?> json) => _$TransactionRequestDtoFromJson(json);
 }

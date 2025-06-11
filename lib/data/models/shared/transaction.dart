@@ -4,8 +4,8 @@ part 'transaction.freezed.dart';
 part 'transaction.g.dart';
 
 @freezed
-abstract class Transaction with _$Transaction {
-  const factory Transaction({
+abstract class TransactionDto with _$TransactionDto {
+  const factory TransactionDto({
     required int id,
     required int accountId,
     required int categoryId,
@@ -14,7 +14,7 @@ abstract class Transaction with _$Transaction {
     required String? comment,
     required DateTime createdAt,
     required DateTime updatedAt
-  }) = _Transaction;
+  }) = _TransactionDto;
 
-  factory Transaction.fromJson(Map<String, Object?> json) => _$TransactionFromJson(json);
+  factory TransactionDto.fromJson(Map<String, Object?> json) => _$TransactionDtoFromJson(json);
 }

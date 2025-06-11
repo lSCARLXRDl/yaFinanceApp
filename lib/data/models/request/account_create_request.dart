@@ -4,12 +4,12 @@ part 'account_create_request.freezed.dart';
 part 'account_create_request.g.dart';
 
 @freezed
-abstract class AccountCreateRequest with _$AccountCreateRequest {
-  const factory AccountCreateRequest({
+abstract class AccountCreateRequestDto with _$AccountCreateRequestDto {
+  const factory AccountCreateRequestDto({
     required String name,
     required String balance,
     required String currency
-  }) = _AccountCreateRequest;
+  }) = _AccountCreateRequestDto;
 
-  factory AccountCreateRequest.fromJson(Map<String, Object?> json) => _$AccountCreateRequestFromJson(json);
+  factory AccountCreateRequestDto.fromJson(Map<String, Object?> json) => _$AccountCreateRequestDtoFromJson(json);
 }

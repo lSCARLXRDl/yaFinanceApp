@@ -4,13 +4,13 @@ part 'account_state.freezed.dart';
 part 'account_state.g.dart';
 
 @freezed
-abstract class AccountState with _$AccountState {
-  const factory AccountState({
+abstract class AccountStateDto with _$AccountStateDto {
+  const factory AccountStateDto({
     required int id,
     required String name,
     required String balance,
     required String currency
-  }) = _AccountState;
+  }) = _AccountStateDto;
 
-  factory AccountState.fromJson(Map<String, Object?> json) => _$AccountStateFromJson(json);
+  factory AccountStateDto.fromJson(Map<String, Object?> json) => _$AccountStateDtoFromJson(json);
 }

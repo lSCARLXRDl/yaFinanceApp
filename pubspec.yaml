@@ -24,3 +24,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - lib/assets/icons/articles.png
+    - lib/assets/icons/bank_account.png
+    - lib/assets/icons/expenses.png
+    - lib/assets/icons/income.png
+    - lib/assets/icons/settings.png

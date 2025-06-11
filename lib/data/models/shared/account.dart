@@ -4,8 +4,8 @@ part 'account.freezed.dart';
 part 'account.g.dart';
 
 @freezed
-abstract class Account with _$Account {
-  const factory Account({
+abstract class AccountDto with _$AccountDto {
+  const factory AccountDto({
     required int id,
     required int userid,
     required String name,
@@ -13,7 +13,7 @@ abstract class Account with _$Account {
     required String currency,
     required DateTime createdAt,
     required DateTime updatedAt
-  }) = _Account;
+  }) = _AccountDto;
 
-  factory Account.fromJson(Map<String, Object?> json) => _$AccountFromJson(json);
+  factory AccountDto.fromJson(Map<String, Object?> json) => _$AccountDtoFromJson(json);
 }

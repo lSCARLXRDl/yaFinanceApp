@@ -8,16 +8,16 @@ part 'account_history.g.dart';
 enum EnumChangeType{CREATION, MODIFICATION}
 
 @freezed
-abstract class AccountHistory with _$AccountHistory {
-  const factory AccountHistory({
+abstract class AccountHistoryDto with _$AccountHistoryDto {
+  const factory AccountHistoryDto({
     required int id,
     required int accountId,
     required EnumChangeType changeType,
-    required AccountState previousState,
-    required AccountState newState,
+    required AccountStateDto previousState,
+    required AccountStateDto newState,
     required DateTime changeTimestamp,
     required DateTime createdAt,
-  }) = _AccountHistory;
+  }) = _AccountHistoryDto;
 
-  factory AccountHistory.fromJson(Map<String, Object?> json) => _$AccountHistoryFromJson(json);
+  factory AccountHistoryDto.fromJson(Map<String, Object?> json) => _$AccountHistoryDtoFromJson(json);
 }
