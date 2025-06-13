@@ -11,7 +11,7 @@ class _IncomePageState extends State<IncomePage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('IncomePage'),
+      child: Text('IncomePage', style: TextStyle(fontSize: 30),),
     );
   }
 }

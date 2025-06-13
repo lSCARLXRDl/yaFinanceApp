@@ -11,7 +11,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('BankAccountPage'),
+      child: Text('BankAccountPage', style: TextStyle(fontSize: 30),),
     );
   }
 }

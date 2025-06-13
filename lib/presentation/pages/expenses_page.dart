@@ -11,7 +11,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('ExpensesPage'),
+      child: Text('ExpensesPage', style: TextStyle(fontSize: 30),),
     );
   }
 }

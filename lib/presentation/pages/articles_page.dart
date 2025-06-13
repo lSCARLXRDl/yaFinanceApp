@@ -11,7 +11,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('ArticlesPage'),
+      child: Text('ArticlesPage', style: TextStyle(fontSize: 30),),
     );
   }
 }

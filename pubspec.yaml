@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   freezed_annotation: ^3.0.0
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -25,8 +26,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/assets/icons/articles.png
-    - lib/assets/icons/bank_account.png
-    - lib/assets/icons/expenses.png
-    - lib/assets/icons/income.png
-    - lib/assets/icons/settings.png
+    - lib/assets/icons/articles.svg
+    - lib/assets/icons/bank_account.svg
+    - lib/assets/icons/expenses.svg
+    - lib/assets/icons/income.svg
+    - lib/assets/icons/settings.svg
