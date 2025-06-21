@@ -1,29 +1,20 @@
-class Transaction {
-  const Transaction({
-    required this.id,
-    required this.accountId,
-    required this.categoryId,
-    required this.amount,
-    required this.transactionDate,
-    required this.comment,
-    required this.createdAt,
-    required this.updatedAt
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int id;
-  final int accountId;
-  final int categoryId;
-  final String amount;
-  final DateTime transactionDate;
-  final String? comment;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+part 'transaction.freezed.dart';
+part 'transaction.g.dart';
 
-  String toString() {
-    return 'Category(id: $id, accountId: "$accountId",'
-        ' categoryId: "$categoryId", amount: "$amount",'
-        ' transactionDate: "$transactionDate", comment: "$comment",'
-        ' createdAt: "$createdAt", updatedAt: "$updatedAt")';
-  }
+@freezed
+abstract class Transaction with _$Transaction {
+  const factory Transaction({
+    required int id,
+    required int accountId,
+    required int categoryId,
+    required String amount,
+    required DateTime transactionDate,
+    required String? comment,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) = _Transaction;
 
+  factory Transaction.fromJson(Map<String, Object?> json) => _$TransactionFromJson(json);
 }

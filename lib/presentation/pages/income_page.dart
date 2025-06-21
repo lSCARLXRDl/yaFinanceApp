@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/list_transactions/list_transactions.dart';
+
 class IncomePage extends StatefulWidget {
   const IncomePage({super.key});
 
@@ -10,8 +12,6 @@ class IncomePage extends StatefulWidget {
 class _IncomePageState extends State<IncomePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('IncomePage', style: TextStyle(fontSize: 30),),
-    );
+    return ListTransactions(isIncome: true);
   }
 }

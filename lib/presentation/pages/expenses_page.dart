@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/list_transactions/list_transactions.dart';
+
 class ExpensesPage extends StatefulWidget {
   const ExpensesPage({super.key});
 
@@ -10,8 +12,6 @@ class ExpensesPage extends StatefulWidget {
 class _ExpensesPageState extends State<ExpensesPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('ExpensesPage', style: TextStyle(fontSize: 30),),
-    );
+    return ListTransactions(isIncome: false);
   }
 }

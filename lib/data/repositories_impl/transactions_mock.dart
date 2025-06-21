@@ -1,15 +1,24 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ya_finance_app/data/mappers/date_map.dart';
+import 'package:ya_finance_app/data/mappers/transaction_response_map.dart';
 import 'package:ya_finance_app/data/models/shared/transaction.dart';
 import 'package:ya_finance_app/utils/list.dart';
+import 'package:dio/dio.dart';
 
 import '../../domain/models/transaction.dart';
+import '../../domain/models/transaction_response.dart';
 import '../../domain/repositories/transactions.dart';
 import '../mappers/transaction_map.dart';
 import '../models/request/transaction_request.dart';
+import '../models/response/transaction_response.dart';
+
+
+final dio = Dio();
 
 class MockTransactionRepository implements TransactionRepository {
   final List<TransactionDto> _transactionsList = [
     TransactionDto(
-      id: 0,
+      id: 1,
       accountId: 1,
       categoryId: 1,
       amount: '500.00',
@@ -19,7 +28,7 @@ class MockTransactionRepository implements TransactionRepository {
       updatedAt: DateTime(2025, 6, 12, 15, 47),
     ),
     TransactionDto(
-      id: 1,
+      id: 2,
       accountId: 1,
       categoryId: 2,
       amount: '75000.00',
@@ -29,32 +38,34 @@ class MockTransactionRepository implements TransactionRepository {
       updatedAt: DateTime(2025, 5, 30, 12, 13),
     ),
     TransactionDto(
-      id: 2,
+      id: 3,
       accountId: 1,
       categoryId: 3,
       amount: '5200.00',
       transactionDate: DateTime(2025, 6, 2, 18, 31),
-      comment: null,
+      comment: 'Обувной магазин',
       createdAt: DateTime(2025, 6, 2, 18, 31),
       updatedAt: DateTime(2025, 6, 2, 18, 31),
     ),
+    TransactionDto(
+      id: 4,
+      accountId: 1,
+      categoryId: 4,
+      amount: '1300.00',
+      transactionDate: DateTime(2025, 6, 2, 15, 00),
+      comment: 'Вернул',
+      createdAt: DateTime(2025, 6, 2, 15, 00),
+      updatedAt: DateTime(2025, 6, 2, 15, 00),
+    ),
   ];
-  int transCount = 2;
-
-  void incrCount() {
-    transCount++;
-  }
-
-  void decrCount() {
-    transCount--;
-  }
+  int transid = 4;
 
   @override
   Future<Transaction> createTransaction({required TransactionRequestDto request,}) async {
     await Future.delayed(const Duration(milliseconds: 200));
     final DateTime now = DateTime.now();
     final newTransDto = TransactionDto(
-        id: transCount,
+        id: transid,
         accountId: request.accountId,
         categoryId: request.categoryId,
         amount: request.amount,
@@ -64,6 +75,7 @@ class MockTransactionRepository implements TransactionRepository {
         updatedAt: DateTime(now.year, now.month, now.day, now.hour, now.minute),
     );
     _transactionsList.add(newTransDto);
+    transid++;
     return TransactionMapper.fromDto(newTransDto);
   }
 
@@ -102,5 +114,24 @@ class MockTransactionRepository implements TransactionRepository {
     );
     _transactionsList.add(newTrans);
     return TransactionMapper.fromDto(newTrans);
+  }
+
+  @override
+  Future<List<TransactionResponse>> getTransactionsByPeriod({required int accountId, DateTime? startDate, DateTime? endDate}) async{
+    final now = DateTime.now();
+    final apiKey = dotenv.env['API_KEY'];
+    String startDateR = (startDate != null) ? DateMapper.fromDate(startDate) : DateMapper.fromDate(DateTime(now.year, now.month, 1));
+    String endDateR = (endDate != null) ? DateMapper.fromDate(endDate) : DateMapper.fromDate(DateTime(now.year, now.month + 1, 1).subtract(Duration(days: 1)));
+    try {
+      final response = await dio.get(
+        'https://shmr-finance.ru/api/v1/transactions/account/${accountId}/period?startDate=${startDateR}&endDate=${endDateR}',
+        options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
+      );
+      final List<dynamic> data = response.data;
+      final cat = data.map((json) => TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(json))).toList();
+      return cat;
+    } on DioException catch (e) {
+      throw Exception('Failed: ${e.message}');
+    }
   }
 }
