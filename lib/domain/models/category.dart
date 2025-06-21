@@ -1,18 +1,16 @@
-class Category {
-  const Category({
-    required this.id,
-    required this.name,
-    required this.emoji,
-    required this.isIncome
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int id;
-  final String name;
-  final String emoji;
-  final bool isIncome;
+part 'category.freezed.dart';
+part 'category.g.dart';
 
-  String toString() {
-    return 'Category(id: $id, name: "$name", emoji: "$emoji", isIncome: $isIncome)';
-  }
+@freezed
+abstract class Category with _$Category {
+  const factory Category({
+    required int id,
+    required String name,
+    required String emoji,
+    required bool isIncome,
+  }) = _Category;
 
+  factory Category.fromJson(Map<String, Object?> json) => _$CategoryFromJson(json);
 }

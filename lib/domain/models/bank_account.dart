@@ -1,26 +1,19 @@
-class BankAccount {
-  const BankAccount({
-    required this.id,
-    required this.userid,
-    required this.name,
-    required this.balance,
-    required this.currency,
-    required this.createdAt,
-    required this.updatedAt
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int id;
-  final int userid;
-  final String name;
-  final String balance;
-  final String currency;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+part 'bank_account.freezed.dart';
+part 'bank_account.g.dart';
 
-  String toString() {
-    return 'BankAccount(id: $id, userid: "$userid",'
-        ' name: "$name", balance: "$balance",'
-        ' currency: "$currency", createdAt: "$createdAt",'
-        ' updatedAt: "$updatedAt")';
-  }
+@freezed
+abstract class BankAccount with _$BankAccount {
+  const factory BankAccount({
+    required int id,
+    required int userid,
+    required String name,
+    required String balance,
+    required String currency,
+    required DateTime createdAt,
+    required DateTime updatedAt
+  }) = _BankAccount;
+
+  factory BankAccount.fromJson(Map<String, Object?> json) => _$BankAccountFromJson(json);
 }
