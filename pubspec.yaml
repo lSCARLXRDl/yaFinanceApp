@@ -22,6 +22,7 @@ dependencies:
   go_router: ^15.2.0
   dio: ^5.8.0+1
   flutter_dotenv: ^5.2.1
+  provider: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -43,3 +44,4 @@ flutter:
     - lib/assets/icons/transac_history.svg
     - lib/assets/icons/analysis.svg
     - lib/assets/icons/back.svg
+    - lib/assets/icons/account_edit.svg

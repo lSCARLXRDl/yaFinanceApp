@@ -18,11 +18,14 @@ class TransactionsHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:
-          (_) =>
-              ThBloc(MockTransactionRepository(), MockCategoriesRepository()),
-      child: TransactionsHistoryState(isIncome: isIncome),
+    return ChangeNotifierProvider(
+      create: (_) => DateProvider(),
+      child: BlocProvider(
+        create:
+            (_) =>
+                ThBloc(MockTransactionRepository(), MockCategoriesRepository()),
+        child: TransactionsHistoryState(isIncome: isIncome),
+      ),
     );
   }
 }
@@ -35,30 +38,28 @@ class TransactionsHistoryState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateBloc = BlocProvider.of<ThBloc>(context);
-
-    return ChangeNotifierProvider(
-      create: (_) => DateProvider(),
-      child: BlocBuilder<ThBloc, ThState>(
+    (isIncome)
+        ? dateBloc.add(
+      InitIncomeEvent(
+        DateMapper.toDate(
+          Provider.of<DateProvider>(context).startDate,
+        ),
+        DateMapper.toDate(Provider.of<DateProvider>(context).endDate),
+        Provider.of<DateProvider>(context, listen: false).sortType,
+      ),
+    )
+        : dateBloc.add(
+      InitExpensesEvent(
+        DateMapper.toDate(
+          Provider.of<DateProvider>(context).startDate,
+        ),
+        DateMapper.toDate(Provider.of<DateProvider>(context).endDate),
+        Provider.of<DateProvider>(context, listen: false).sortType,
+      ),
+    );
+    return BlocBuilder<ThBloc, ThState>(
         builder: (context, state) {
-          (isIncome)
-              ? dateBloc.add(
-                InitIncomeEvent(
-                  DateMapper.toDate(
-                    Provider.of<DateProvider>(context).startDate,
-                  ),
-                  DateMapper.toDate(Provider.of<DateProvider>(context).endDate),
-                  Provider.of<DateProvider>(context, listen: false).sortType,
-                ),
-              )
-              : dateBloc.add(
-                InitExpensesEvent(
-                  DateMapper.toDate(
-                    Provider.of<DateProvider>(context).startDate,
-                  ),
-                  DateMapper.toDate(Provider.of<DateProvider>(context).endDate),
-                  Provider.of<DateProvider>(context, listen: false).sortType,
-                ),
-              );
+
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 80,
@@ -415,7 +416,6 @@ class TransactionsHistoryState extends StatelessWidget {
             ),
           );
         },
-      ),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ya_finance_app/presentation/pages/expenses_page.dart';
 import 'package:ya_finance_app/presentation/pages/settings_page.dart';
 import 'package:ya_finance_app/presentation/pages/articles_page.dart';
-import 'package:ya_finance_app/presentation/pages/bank_account_page.dart';
+import 'package:ya_finance_app/presentation/pages/bank_account_page/bank_account_page.dart';
 import 'package:ya_finance_app/presentation/pages/income_page.dart';
 import 'package:ya_finance_app/presentation/widgets/transac_history/transac_history.dart';
 import 'package:ya_finance_app/presentation/widgets/analysis/analysis.dart';
