@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+
+import '../account_provider.dart';
 
 part 'ba_page_event.dart';
 
@@ -22,7 +25,7 @@ class BaPageBloc extends Bloc<BaPageEvent, BaPageState> {
         emit(BaPageLoading());
       }
       // TODO
-      emit(BaPageLoaded(balance: 3000.12, currency: "RUB"));
+      emit(BaPageLoaded(balance: '3000.12', currency: '₽', account_name: 'Баланс'));
     } catch (e) {
       emit(BaPageLoadingFailure(exception: e));
     } finally {

@@ -7,10 +7,11 @@ class BaPageInitial extends BaPageState {}
 class BaPageLoading extends BaPageState {}
 
 class BaPageLoaded extends BaPageState {
-  BaPageLoaded({required this.balance, required this.currency});
+  BaPageLoaded({required this.balance, required this.currency, required this.account_name});
 
-  final double balance;
+  final String balance;
   final String currency;
+  final String account_name;
 }
 
 class BaPageLoadingFailure extends BaPageState {
