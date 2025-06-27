@@ -5,10 +5,11 @@ class TaState {}
 class TaInitial extends TaState {}
 
 class TaLoaded extends TaState {
-  TaLoaded({required this.transList, required this.categList, required this.totalAmount});
+  TaLoaded({required this.categListWithTransac, required this.percentList, required this.amountList, required this.totalAmount});
 
-  final List transList;
-  final List categList;
+  final Map categListWithTransac;
+  final List<String> percentList;
+  final List<double> amountList;
   final double totalAmount;
 }
 

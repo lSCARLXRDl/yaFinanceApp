@@ -58,8 +58,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
             } else if (state is SearchLoaded) {
               list_categ = state.categList;
             }
-            //if ((state is ApPageLoaded) || (state is SearchLoaded)) {
-            //list_categ = state.categList;
             return Column(
               children: [
                 Container(

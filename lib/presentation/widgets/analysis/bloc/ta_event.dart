@@ -5,15 +5,13 @@ class TaEvent {}
 class InitExpensesEvent extends TaEvent {
   final DateTime startDate;
   final DateTime endDate;
-  final String sortType;
-  InitExpensesEvent(this.startDate, this.endDate, this.sortType);
+  InitExpensesEvent(this.startDate, this.endDate,);
 }
 
 class InitIncomeEvent extends TaEvent {
   final DateTime startDate;
   final DateTime endDate;
-  final String sortType;
-  InitIncomeEvent(this.startDate, this.endDate, this.sortType);
+  InitIncomeEvent(this.startDate, this.endDate,);
 }
 
 class StartDatePick extends TaEvent {

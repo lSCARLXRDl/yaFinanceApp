@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:ya_finance_app/data/mappers/date_map.dart';
+import 'package:ya_finance_app/data/mappers/percent_map.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
-
+import 'package:collection/collection.dart';
 
 part 'ta_event.dart';
 part 'ta_state.dart';
@@ -13,23 +14,59 @@ class TaBloc extends Bloc<TaEvent, TaState> {
     on<InitExpensesEvent>((event, emit) async {
       final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: event.startDate, endDate: event.endDate);
       final transList = transacs.where((el) => el.category.isIncome == false).toList();
-      if (event.sortType == '2'){
-        transList.sort((a, b) => DateMapper.toFullDateTime(a.transactionDate.toString()).compareTo(DateMapper.toFullDateTime(b.transactionDate.toString())));
-      }
-      else if (event.sortType == '3'){
-        transList.sort((a, b) => double.parse(a.amount).compareTo(double.parse(b.amount)));
-      }
       final categoriesList = transList.map((el) => el.category).toList();
+
+      List uniqueCategories = categoriesList.fold([], (list, category) {
+        return list.any((c) => c.id == category.id) ? list : [...list, category];
+      });
+
+      Map<dynamic, List<dynamic>> transactionsByCategory = {
+        for (int i = 0; i < uniqueCategories.length; i++)
+          i: transacs.where((transaction) => transaction.category.id == uniqueCategories[i].id).toList()
+      };
+
       final double totalAmount = transList.fold(0, (sum, transList) => sum + double.parse(transList.amount));
-      emit(TaLoaded(transList: transList, categList: categoriesList, totalAmount: totalAmount));
+
+      final List<double> amountList = [];
+      final List<String> percentList = [];
+      for (int i = 0; i < transactionsByCategory.length; i++) {
+        var el = transactionsByCategory[i];
+        double nAmount = el!.fold(0, (sum, el) => sum + double.parse(el.amount));
+        amountList.add(nAmount);
+        percentList.add(PercentMapper.roundDouble(nAmount / totalAmount * 100));
+      }
+
+
+      emit(TaLoaded(categListWithTransac: transactionsByCategory, percentList: percentList, amountList: amountList, totalAmount: totalAmount));
     });
 
     on<InitIncomeEvent>((event, emit) async {
       final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: event.startDate, endDate: event.endDate);
       final transList = transacs.where((el) => el.category.isIncome == true).toList();
       final categoriesList = transList.map((el) => el.category).toList();
+
+      List uniqueCategories = categoriesList.fold([], (list, category) {
+        return list.any((c) => c.id == category.id) ? list : [...list, category];
+      });
+
+      Map<dynamic, List<dynamic>> transactionsByCategory = {
+        for (int i = 0; i < uniqueCategories.length; i++)
+          i: transacs.where((transaction) => transaction.category.id == uniqueCategories[i].id).toList()
+      };
+
       final double totalAmount = transList.fold(0, (sum, transList) => sum + double.parse(transList.amount));
-      emit(TaLoaded(transList: transList, categList: categoriesList, totalAmount: totalAmount));
+
+      final List<double> amountList = [];
+      final List<String> percentList = [];
+      for (int i = 0; i < transactionsByCategory.length; i++) {
+        var el = transactionsByCategory[i];
+        double nAmount = el!.fold(0, (sum, el) => sum + double.parse(el.amount));
+        amountList.add(nAmount);
+        percentList.add(PercentMapper.roundDouble(nAmount / totalAmount * 100));
+      }
+
+
+      emit(TaLoaded(categListWithTransac: transactionsByCategory, percentList: percentList, amountList: amountList, totalAmount: totalAmount));
     });
 
     on<StartDatePick>((event, emit) {
