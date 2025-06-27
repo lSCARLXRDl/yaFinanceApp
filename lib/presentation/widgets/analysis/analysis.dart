@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 
 import 'bloc/ta_bloc.dart';
 
@@ -13,7 +15,7 @@ class TransactionsAnalysis extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TaBloc(),
+      create: (_) => TaBloc(MockTransactionRepository(), MockCategoriesRepository()),
       child: TransactionsAnalysisState(isIncome: isIncome),
     );
   }

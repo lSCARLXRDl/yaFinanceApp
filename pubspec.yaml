@@ -23,6 +23,7 @@ dependencies:
   dio: ^5.8.0+1
   flutter_dotenv: ^5.2.1
   provider: ^6.1.5
+  fuzzywuzzy: ^1.2.0
 
 dev_dependencies:
   flutter_test:
