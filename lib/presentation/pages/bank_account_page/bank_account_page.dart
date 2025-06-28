@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:ya_finance_app/data/database/account_db.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
 import 'account_provider.dart';
 import 'bloc/ba_page_bloc.dart';
@@ -16,7 +17,7 @@ class BankAccountPage extends StatefulWidget {
 }
 
 class _BankAccountPageState extends State<BankAccountPage> {
-  final _baPageBloc = BaPageBloc(MockBankAccountRepository());
+  final _baPageBloc = BaPageBloc(MockBankAccountRepository(), DBAccountRepository());
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
               if (Provider.of<AccountProvider>(context, listen: false).balance == '') {
                 Provider.of<AccountProvider>(context, listen: false).balance = state.balance;
                 Provider.of<AccountProvider>(context, listen: false).account_name = state.account_name;
+                Provider.of<AccountProvider>(context, listen: false).currency = state.currency;
               }
               return Column(
                 children: [

@@ -33,7 +33,6 @@ class _BankAccountEditState extends State<BankAccountEdit> {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -49,6 +48,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
             child: IconButton(
               icon: Icon(Icons.check, size: 30),
               onPressed: () {
+                print(_controllerName.text);
                 Provider.of<AccountProvider>(context, listen: false).changeAccountName(_controllerName.text);
                 Provider.of<AccountProvider>(context, listen: false).changeBalance(_controllerBalance.text);
                 context.pop();
