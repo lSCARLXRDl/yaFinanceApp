@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:ya_finance_app/router/home_router/home_router.dart';
 
+import 'data/database/database.dart';
+
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -17,6 +19,19 @@ void main() async {
     usePathUrlStrategy();
   }
   WidgetsFlutterBinding.ensureInitialized();
+
+
+  // ОШИБКУ ВЫЗЫВАЕТ ЭТОТ КОД НИЖЕ
+
+  final database = AppDatabase();
+  await database.into(database.accountPage).insert(AccountPageCompanion.insert(
+    balance: '1234.2',
+    currency: '\$',
+    name: 'main'
+  ));
+
+
+
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.white,

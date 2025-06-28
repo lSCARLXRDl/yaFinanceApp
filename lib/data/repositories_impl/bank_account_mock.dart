@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ya_finance_app/data/mappers/account_map.dart';
 import 'package:ya_finance_app/data/mappers/account_response_map.dart';
-import 'package:ya_finance_app/data/models/response/account_response.dart';
 import 'package:ya_finance_app/data/models/shared/account.dart';
 import 'package:ya_finance_app/domain/models/account_response.dart';
 import 'package:ya_finance_app/utils/list.dart';
@@ -34,11 +33,7 @@ class MockBankAccountRepository implements BankAccountRepository {
         options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
       );
       final data = response.data;
-      //final cat = AccountResponseDto.fromJson(data);
-      //print(cat);
       return AccountResponseMapper.fromDto(data);
-      //print(1);
-      //return AccountResponse(id: data.id, name: data.name, balance: data.balance, currency: data.currency, incomeStats: data.incomeStats, expenseStats: data.expenseStats, createdAt: data.createdAt, updatedAt: data.updatedAt);
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
     }

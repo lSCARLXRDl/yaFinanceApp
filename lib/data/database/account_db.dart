@@ -1,7 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../domain/repositories/bank_account.dart';
-
 class DBAccountRepository{
 
   Future<Map> getBankAccount() async {

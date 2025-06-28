@@ -1,11 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
-
 import '../../pages/bank_account_page/account_provider.dart';
 
 class BankAccountEdit extends StatefulWidget {
@@ -118,36 +113,6 @@ class _BankAccountEditState extends State<BankAccountEdit> {
                             ],
                           ),
                         ),
-                        /*SizedBox(
-                          width: 150,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              hintText: Provider.of<AccountProvider>(context).account_name,
-                              border: InputBorder.none,
-                            ),
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 200,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            textAlign: TextAlign.right,
-                            decoration: InputDecoration(
-                              hintText: Provider.of<AccountProvider>(context,).balance,
-                              border: InputBorder.none,
-                            ),
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),*/
                         Text(
                           ' ${Provider.of<AccountProvider>(context).currency}',
                           style: TextStyle(

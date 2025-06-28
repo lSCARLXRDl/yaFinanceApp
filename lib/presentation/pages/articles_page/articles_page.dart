@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
 
 import 'bloc/ap_page_bloc.dart';
@@ -161,11 +158,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
                   ),
               ],
             );
-
-            if (state is ApPageLoadingFailure) {
-              // TODO
-            }
-            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

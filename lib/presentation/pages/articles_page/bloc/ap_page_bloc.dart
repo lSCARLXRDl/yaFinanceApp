@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:bloc/bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
-import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
 
 part 'ap_page_event.dart';
