@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:ya_finance_app/data/mappers/date_map.dart';
 import 'package:ya_finance_app/data/mappers/percent_map.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
-import 'package:collection/collection.dart';
 
 part 'ta_event.dart';
 part 'ta_state.dart';
