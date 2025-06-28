@@ -1,18 +1,21 @@
 part of 'ta_bloc.dart';
 
-abstract class TaState {
-  final int value;
-  const TaState(this.value);
+class TaState {}
 
-  @override
-  List<Object> get props => [];
+class TaInitial extends TaState {}
+
+class TaLoaded extends TaState {
+  TaLoaded({required this.categListWithTransac, required this.percentList, required this.amountList, required this.totalAmount});
+
+  final Map categListWithTransac;
+  final List<String> percentList;
+  final List<double> amountList;
+  final double totalAmount;
 }
 
-class TaInitial extends TaState {
-  final int value;
+class DatePicked extends TaState {
+  DatePicked({this.startDate, this.endDate});
 
-  const TaInitial(this.value) : super(0);
-
-  @override
-  List<Object> get props => [value];
+  final String? startDate;
+  final String? endDate;
 }

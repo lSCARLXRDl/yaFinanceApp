@@ -33,7 +33,6 @@ class MockCategoriesRepository implements CategoriesRepository {
       );
       final List<dynamic> data = response.data;
       final cat = data.map((json) => CategoryMapper.fromDto(CategoryDto.fromJson(json))).toList();
-      print(cat);
       return cat;
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');

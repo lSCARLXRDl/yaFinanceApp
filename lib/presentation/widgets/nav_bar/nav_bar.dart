@@ -12,7 +12,7 @@ enum HomeTab {
 }
 
 class HomeTabsPage extends StatelessWidget {
-  final HomeTab tab;
+  final HomeTab? tab;
   final Widget child;
   final ValueChanged<HomeTab> onTap;
 
@@ -25,52 +25,82 @@ class HomeTabsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      body: child,
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: tab.index,
+    if (tab != null) {
+      final theme = Theme.of(context);
+      return Scaffold(
+        body: child,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: tab!.index,
           type: theme.bottomNavigationBarTheme.type,
           backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
           selectedItemColor: theme.hintColor,
-          showUnselectedLabels: theme.bottomNavigationBarTheme.showUnselectedLabels,
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+          showUnselectedLabels:
+              theme.bottomNavigationBarTheme.showUnselectedLabels,
+          selectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+          ),
           onTap: (index) => onTap(HomeTab.byIndex(index)),
           items: [
             AppBarItem(
-                label: 'Расходы',
-                icon: 'lib/assets/icons/expenses.svg',
-                backColor: tab.index == 0 ? Color(0xFFD4FAE6) : theme.bottomNavigationBarTheme.backgroundColor,
-                iconColor: tab.index == 0 ? theme.primaryColor : Color(0xFF49454F)
+              label: 'Расходы',
+              icon: 'lib/assets/icons/expenses.svg',
+              backColor:
+                  tab!.index == 0
+                      ? Color(0xFFD4FAE6)
+                      : theme.bottomNavigationBarTheme.backgroundColor,
+              iconColor:
+                  tab!.index == 0 ? theme.primaryColor : Color(0xFF49454F),
             ).toBottomNavigationBarItem(),
             AppBarItem(
-                label: 'Доходы',
-                icon: 'lib/assets/icons/income.svg',
-                backColor: tab.index == 1 ? Color(0xFFD4FAE6) : theme.bottomNavigationBarTheme.backgroundColor,
-                iconColor: tab.index == 1 ? theme.primaryColor : Color(0xFF49454F)
+              label: 'Доходы',
+              icon: 'lib/assets/icons/income.svg',
+              backColor:
+                  tab!.index == 1
+                      ? Color(0xFFD4FAE6)
+                      : theme.bottomNavigationBarTheme.backgroundColor,
+              iconColor:
+                  tab!.index == 1 ? theme.primaryColor : Color(0xFF49454F),
             ).toBottomNavigationBarItem(),
             AppBarItem(
-                label: 'Счёт',
-                icon: 'lib/assets/icons/bank_account.svg',
-                backColor: tab.index == 2 ? Color(0xFFD4FAE6) : theme.bottomNavigationBarTheme.backgroundColor,
-                iconColor: tab.index == 2 ? theme.primaryColor : Color(0xFF49454F)
+              label: 'Счёт',
+              icon: 'lib/assets/icons/bank_account.svg',
+              backColor:
+                  tab!.index == 2
+                      ? Color(0xFFD4FAE6)
+                      : theme.bottomNavigationBarTheme.backgroundColor,
+              iconColor:
+                  tab!.index == 2 ? theme.primaryColor : Color(0xFF49454F),
             ).toBottomNavigationBarItem(),
             AppBarItem(
-                label: 'Статьи',
-                icon: 'lib/assets/icons/articles.svg',
-                backColor: tab.index == 3 ? Color(0xFFD4FAE6) : theme.bottomNavigationBarTheme.backgroundColor,
-                iconColor: tab.index == 3 ? theme.primaryColor : Color(0xFF49454F)
+              label: 'Статьи',
+              icon: 'lib/assets/icons/articles.svg',
+              backColor:
+                  tab!.index == 3
+                      ? Color(0xFFD4FAE6)
+                      : theme.bottomNavigationBarTheme.backgroundColor,
+              iconColor:
+                  tab!.index == 3 ? theme.primaryColor : Color(0xFF49454F),
             ).toBottomNavigationBarItem(),
             AppBarItem(
-                label: 'Настройки',
-                icon: 'lib/assets/icons/settings.svg',
-                backColor: tab.index == 4 ? Color(0xFFD4FAE6) : theme.bottomNavigationBarTheme.backgroundColor,
-                iconColor: tab.index == 4 ? theme.primaryColor : Color(0xFF49454F)
+              label: 'Настройки',
+              icon: 'lib/assets/icons/settings.svg',
+              backColor:
+                  tab!.index == 4
+                      ? Color(0xFFD4FAE6)
+                      : theme.bottomNavigationBarTheme.backgroundColor,
+              iconColor:
+                  tab!.index == 4 ? theme.primaryColor : Color(0xFF49454F),
             ).toBottomNavigationBarItem(),
-          ]
-      ),
-    );
+          ],
+        ),
+      );
+    }
+    return child;
   }
 }
 

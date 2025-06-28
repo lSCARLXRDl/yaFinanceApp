@@ -1,11 +1,25 @@
 part of 'ta_bloc.dart';
 
-abstract class TaEvent {
-  const TaEvent();
+class TaEvent {}
 
-  @override
-  List<Object> get props => [];
+class InitExpensesEvent extends TaEvent {
+  final DateTime startDate;
+  final DateTime endDate;
+  InitExpensesEvent(this.startDate, this.endDate,);
 }
 
-class IncrementEvent extends TaEvent {}
-class DecrementEvent extends TaEvent {}
+class InitIncomeEvent extends TaEvent {
+  final DateTime startDate;
+  final DateTime endDate;
+  InitIncomeEvent(this.startDate, this.endDate,);
+}
+
+class StartDatePick extends TaEvent {
+  final DateTime startDate;
+  StartDatePick(this.startDate);
+}
+
+class EndDatePick extends TaEvent {
+  final DateTime endDate;
+  EndDatePick(this.endDate);
+}

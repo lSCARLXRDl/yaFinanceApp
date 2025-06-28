@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ya_finance_app/presentation/pages/bank_account_page/account_provider.dart';
 import 'package:ya_finance_app/presentation/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -33,7 +34,9 @@ class FinanceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return ChangeNotifierProvider(
+        create: (_) => AccountProvider(),
+    child: MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Finance App',
       theme: lightTheme,
@@ -47,6 +50,6 @@ class FinanceApp extends StatelessWidget {
         Locale('ru', 'RU'),
         Locale('en', 'US'),
       ],
-    );
+    ));
   }
 }
