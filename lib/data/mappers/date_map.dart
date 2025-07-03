@@ -27,4 +27,17 @@ class DateMapper {
     int second = int.parse(ttime.split(':')[2]);
     return DateTime(year, month, day, hour, minute, second);
   }
+
+  static String fromTime(DateTime date) {
+    String hour = (date.hour.toString().length == 1) ? '0${date.hour}' : date.hour.toString();
+    String minute = (date.minute.toString().length == 1) ? '0${date.minute}' : date.minute.toString();
+    return '${hour}:${minute}';
+  }
+
+  static String fromStringDate(String date) {
+    final List dt = date.split('-');
+    String month = (dt[1].length == 1) ? '0${dt[1]}' : dt[1];
+    String day = (dt[2].length == 1) ? '0${dt[2]}' : dt[2];
+    return '${dt[0]}-${month}-${day}';
+  }
 }

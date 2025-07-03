@@ -2,7 +2,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ya_finance_app/data/mappers/date_map.dart';
 import 'package:ya_finance_app/data/mappers/transaction_response_map.dart';
 import 'package:ya_finance_app/data/models/shared/transaction.dart';
-import 'package:ya_finance_app/utils/list.dart';
 import 'package:dio/dio.dart';
 
 import '../../domain/models/transaction.dart';
@@ -61,59 +60,78 @@ class MockTransactionRepository implements TransactionRepository {
   int transid = 4;
 
   @override
-  Future<Transaction> createTransaction({required TransactionRequestDto request,}) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    final DateTime now = DateTime.now();
-    final newTransDto = TransactionDto(
-        id: transid,
-        accountId: request.accountId,
-        categoryId: request.categoryId,
-        amount: request.amount,
-        transactionDate: request.transactionDate,
-        comment: request.comment,
-        createdAt: DateTime(now.year, now.month, now.day, now.hour, now.minute),
-        updatedAt: DateTime(now.year, now.month, now.day, now.hour, now.minute),
-    );
-    _transactionsList.add(newTransDto);
-    transid++;
-    return TransactionMapper.fromDto(newTransDto);
+  Future<Transaction> createTransaction({required TransactionRequestDto request}) async {
+    final apiKey = dotenv.env['API_KEY'];
+    try {
+      final response = await dio.post(
+        'https://shmr-finance.ru/api/v1/transactions',
+        options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
+        data: {
+          "accountId": request.accountId,
+          "categoryId": request.categoryId,
+          "amount": request.amount,
+          "transactionDate": request.transactionDate,
+          "comment": request.comment
+        }
+      );
+      return TransactionMapper.fromDto(TransactionDto.fromJson(response.data));
+    } on DioException catch (e) {
+      throw Exception('Failed: ${e.message}');
+    }
   }
 
   @override
   Future<bool> deleteTransaction({required int id}) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    _transactionsList.removeWhere((e) => e.id == id);
-    return true;
+    final apiKey = dotenv.env['API_KEY'];
+    try {
+      final response = await dio.delete(
+          'https://shmr-finance.ru/api/v1/transactions/$id',
+          options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
+      );
+      return true;
+    } on DioException catch (e) {
+      throw Exception('Failed: ${e.message}');
+    }
   }
 
   @override
-  Future<List<Transaction>> getTransactions() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    return _transactionsList.map((e) => TransactionMapper.fromDto(e)).toList();
+  Future<TransactionResponse> getTransactionById({required int id}) async {
+    final apiKey = dotenv.env['API_KEY'];
+    try {
+      final response = await dio.get(
+        'https://shmr-finance.ru/api/v1/transactions/$id',
+        options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
+      );
+      final data = response.data;
+      final cat = TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(data));
+      return cat;
+    } on DioException catch (e) {
+      throw Exception('Failed: ${e.message}');
+    }
   }
 
   @override
-  Future<Transaction> updateTransaction({
+  Future<TransactionResponse> updateTransaction({
     required int id,
     required TransactionRequestDto request,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    final transac = _transactionsList.firstWhereOrNull((e) => e.id == id);
-    if (transac == null) {
-      throw Exception();
+    final apiKey = dotenv.env['API_KEY'];
+    try {
+      final response = await dio.put(
+          'https://shmr-finance.ru/api/v1/transactions/$id',
+          options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
+          data: {
+            "accountId": request.accountId,
+            "categoryId": request.categoryId,
+            "amount": request.amount,
+            "transactionDate": request.transactionDate,
+            "comment": request.comment
+          }
+      );
+      return TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(response.data));
+    } on DioException catch (e) {
+      throw Exception('Failed: ${e.message}');
     }
-    final DateTime now = DateTime.now();
-    _transactionsList.removeWhere((e) => e.id == id);
-    final newTrans = transac.copyWith(
-      accountId: request.accountId,
-      categoryId: request.categoryId,
-      amount: request.amount,
-      transactionDate: request.transactionDate,
-      comment: request.comment,
-      updatedAt: DateTime(now.year, now.month, now.day, now.hour, now.minute),
-    );
-    _transactionsList.add(newTrans);
-    return TransactionMapper.fromDto(newTrans);
   }
 
   @override

@@ -11,7 +11,7 @@ part 'th_state.dart';
 class ThBloc extends Bloc<ThEvent, ThState> {
   ThBloc(this.transac_repo, this.categories_repo) : super(ThInitial()) {
     on<InitExpensesEvent>((event, emit) async {
-      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: event.startDate, endDate: event.endDate);
+      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: event.startDate, endDate: event.endDate);
       final transList = transacs.where((el) => el.category.isIncome == false).toList();
       if (event.sortType == '2'){
         transList.sort((a, b) => DateMapper.toFullDateTime(a.transactionDate.toString()).compareTo(DateMapper.toFullDateTime(b.transactionDate.toString())));
@@ -25,7 +25,7 @@ class ThBloc extends Bloc<ThEvent, ThState> {
     });
 
     on<InitIncomeEvent>((event, emit) async {
-      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: event.startDate, endDate: event.endDate);
+      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: event.startDate, endDate: event.endDate);
       final transList = transacs.where((el) => el.category.isIncome == true).toList();
       if (event.sortType == '2'){
         transList.sort((a, b) => DateMapper.toFullDateTime(a.transactionDate.toString()).compareTo(DateMapper.toFullDateTime(b.transactionDate.toString())));

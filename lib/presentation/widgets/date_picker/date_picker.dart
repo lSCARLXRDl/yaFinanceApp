@@ -86,6 +86,10 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFD4FAE6),
+          borderRadius: BorderRadius.circular(18)
+        ),
         padding: const EdgeInsets.all(16),
         width: 400,
         child: Column(

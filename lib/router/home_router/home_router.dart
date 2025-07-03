@@ -9,6 +9,7 @@ import 'package:ya_finance_app/presentation/widgets/bank_account_edit/bank_accou
 import 'package:ya_finance_app/presentation/widgets/transac_history/transac_history.dart';
 import 'package:ya_finance_app/presentation/widgets/analysis/analysis.dart';
 
+import '../../presentation/widgets/create_edit_transac/create_edit_transac.dart';
 import '../../presentation/widgets/nav_bar/nav_bar.dart';
 
 final router = GoRouter(
@@ -16,9 +17,7 @@ final router = GoRouter(
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) {
-        final hideTabBarRoutes = {
-          '/home/bank_account/edit'
-        };
+        final hideTabBarRoutes = {'/home/bank_account/edit'};
         final shouldHideTabBar = hideTabBarRoutes.any(
           (route) => state.uri.toString().startsWith(route),
         );
@@ -53,7 +52,31 @@ final router = GoRouter(
                       },
                       routes: [],
                     ),
+                    GoRoute(
+                      name: 'expenses_history_edit',
+                      path: 'edit',
+                      builder: (context, state) {
+                        return TransactionsCreateEdit(isIncome: false, isCreate: false,);
+                      },
+                      routes: [],
+                    ),
                   ],
+                ),
+                GoRoute(
+                  name: 'expenses_create',
+                  path: 'create',
+                  builder: (context, state) {
+                    return TransactionsCreateEdit(isIncome: false, isCreate: true,);
+                  },
+                  routes: [],
+                ),
+                GoRoute(
+                  name: 'expenses_edit',
+                  path: 'edit',
+                  builder: (context, state) {
+                    return TransactionsCreateEdit(isIncome: false, isCreate: false,);
+                  },
+                  routes: [],
                 ),
               ],
             ),
@@ -81,7 +104,31 @@ final router = GoRouter(
                       },
                       routes: [],
                     ),
+                    GoRoute(
+                      name: 'income_history_edit',
+                      path: 'edit',
+                      builder: (context, state) {
+                        return TransactionsCreateEdit(isIncome: true, isCreate: false,);
+                      },
+                      routes: [],
+                    ),
                   ],
+                ),
+                GoRoute(
+                  name: 'income_create',
+                  path: 'create',
+                  builder: (context, state) {
+                    return TransactionsCreateEdit(isIncome: true, isCreate: true,);
+                  },
+                  routes: [],
+                ),
+                GoRoute(
+                  name: 'income_edit',
+                  path: 'edit',
+                  builder: (context, state) {
+                    return TransactionsCreateEdit(isIncome: true, isCreate: false,);
+                  },
+                  routes: [],
                 ),
               ],
             ),

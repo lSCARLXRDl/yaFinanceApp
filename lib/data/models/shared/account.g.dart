@@ -8,8 +8,8 @@ part of 'account.dart';
 
 _AccountDto _$AccountDtoFromJson(Map<String, dynamic> json) => _AccountDto(
   id: (json['id'] as num).toInt(),
-  userid: (json['userid'] as num).toInt(),
-  name: json['name'] as String,
+  userId: (json['userId'] as num).toInt(),
+  name: json['name'] as String?,
   balance: json['balance'] as String,
   currency: json['currency'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
@@ -19,7 +19,7 @@ _AccountDto _$AccountDtoFromJson(Map<String, dynamic> json) => _AccountDto(
 Map<String, dynamic> _$AccountDtoToJson(_AccountDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'userid': instance.userid,
+      'userId': instance.userId,
       'name': instance.name,
       'balance': instance.balance,
       'currency': instance.currency,

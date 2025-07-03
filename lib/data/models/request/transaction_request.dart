@@ -9,7 +9,7 @@ abstract class TransactionRequestDto with _$TransactionRequestDto {
     required int accountId,
     required int categoryId,
     required String amount,
-    required DateTime transactionDate,
+    required String transactionDate,
     required String? comment
   }) = _TransactionRequestDto;
 

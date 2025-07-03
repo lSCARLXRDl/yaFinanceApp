@@ -3,9 +3,10 @@ import 'package:ya_finance_app/domain/models/bank_account.dart';
 
 class AccountMapper {
   static BankAccount fromDto(AccountDto dto) {
-    return BankAccount(id: dto.id,
-        userid: dto.userid,
-        name: dto.name,
+    return BankAccount(
+        id: dto.id,
+        userid: dto.userId,
+        name: dto.name ?? ' ',
         balance: dto.balance,
         currency: dto.currency,
         createdAt: dto.createdAt,
@@ -14,7 +15,7 @@ class AccountMapper {
 
   static AccountDto toDto(BankAccount account) {
     return AccountDto(id: account.id,
-        userid: account.userid,
+        userId: account.userid,
         name: account.name,
         balance: account.balance,
         currency: account.currency,
