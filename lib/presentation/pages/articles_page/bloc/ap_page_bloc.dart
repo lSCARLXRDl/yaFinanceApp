@@ -8,9 +8,9 @@ part 'ap_page_event.dart';
 part 'ap_page_state.dart';
 
 class ApPageBloc extends Bloc<ApPageEvent, ApPageState> {
-  final MockCategoriesRepository categories_repo;
+  final MockCategoriesRepository categoriesRepo;
 
-  ApPageBloc(this.categories_repo) : super(ApPageInitial()) {
+  ApPageBloc(this.categoriesRepo) : super(ApPageInitial()) {
     on<LoadStatesEvent>(_load);
     on<SearchStatesEvent>(_search);
   }
@@ -20,7 +20,7 @@ class ApPageBloc extends Bloc<ApPageEvent, ApPageState> {
       if (state is! SearchLoaded) {
         emit(SearchLoading());
       }
-      final categories = await categories_repo.getCategoriesreal();
+      final categories = await categoriesRepo.getCategoriesreal();
       final cat = extractTop(
         query: event.searchStr,
         choices: categories,
@@ -41,7 +41,7 @@ class ApPageBloc extends Bloc<ApPageEvent, ApPageState> {
       if (state is! ApPageLoaded) {
         emit(ApPageLoading());
       }
-      final categories = await categories_repo.getCategoriesreal();
+      final categories = await categoriesRepo.getCategoriesreal();
       emit(ApPageLoaded(categList: categories.toList()));
     } catch (e) {
       emit(ApPageLoadingFailure(exception: e));

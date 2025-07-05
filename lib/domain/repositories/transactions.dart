@@ -9,14 +9,14 @@ abstract interface class TransactionRepository {
     required TransactionRequestDto request,
   });
 
-  Future<Transaction> updateTransaction({
+  Future<TransactionResponse> updateTransaction({
     required int id,
     required TransactionRequestDto request,
   });
 
   Future<bool> deleteTransaction({required int id});
 
-  Future<List<Transaction>> getTransactions();
+  Future<TransactionResponse> getTransactionById({required int id});
 
   Future<List<TransactionResponse>> getTransactionsByPeriod({required int accountId, DateTime? startDate, DateTime? endDate});
 }

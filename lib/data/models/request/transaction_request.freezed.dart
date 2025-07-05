@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TransactionRequestDto {
 
- int get accountId; int get categoryId; String get amount; DateTime get transactionDate; String? get comment;
+ int get accountId; int get categoryId; String get amount; String get transactionDate; String? get comment;
 /// Create a copy of TransactionRequestDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TransactionRequestDtoCopyWith<$Res>  {
   factory $TransactionRequestDtoCopyWith(TransactionRequestDto value, $Res Function(TransactionRequestDto) _then) = _$TransactionRequestDtoCopyWithImpl;
 @useResult
 $Res call({
- int accountId, int categoryId, String amount, DateTime transactionDate, String? comment
+ int accountId, int categoryId, String amount, String transactionDate, String? comment
 });
 
 
@@ -72,7 +72,7 @@ accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nulla
 as int,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
 as int,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as String,transactionDate: null == transactionDate ? _self.transactionDate : transactionDate // ignore: cast_nullable_to_non_nullable
-as DateTime,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
+as String,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -90,7 +90,7 @@ class _TransactionRequestDto implements TransactionRequestDto {
 @override final  int accountId;
 @override final  int categoryId;
 @override final  String amount;
-@override final  DateTime transactionDate;
+@override final  String transactionDate;
 @override final  String? comment;
 
 /// Create a copy of TransactionRequestDto
@@ -126,7 +126,7 @@ abstract mixin class _$TransactionRequestDtoCopyWith<$Res> implements $Transacti
   factory _$TransactionRequestDtoCopyWith(_TransactionRequestDto value, $Res Function(_TransactionRequestDto) _then) = __$TransactionRequestDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int accountId, int categoryId, String amount, DateTime transactionDate, String? comment
+ int accountId, int categoryId, String amount, String transactionDate, String? comment
 });
 
 
@@ -149,7 +149,7 @@ accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nulla
 as int,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
 as int,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as String,transactionDate: null == transactionDate ? _self.transactionDate : transactionDate // ignore: cast_nullable_to_non_nullable
-as DateTime,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
+as String,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

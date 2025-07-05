@@ -8,6 +8,7 @@ import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/presentation/widgets/transac_history/date_provider.dart';
 
+import '../create_edit_transac/create_edit_provider.dart';
 import '../date_picker/date_picker.dart';
 import 'bloc/th_bloc.dart';
 
@@ -37,7 +38,7 @@ class TransactionsHistoryState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateBloc = BlocProvider.of<ThBloc>(context);
+    final dateBloc = BlocProvider.of<ThBloc>(context, listen: false);
     (isIncome)
         ? dateBloc.add(
           InitIncomeEvent(
@@ -151,10 +152,7 @@ class TransactionsHistoryState extends StatelessWidget {
                   onPressed: () async {
                     final date = await showYaDatePicker(context: context);
                     if (date != null)
-                      Provider.of<DateProvider>(
-                        context,
-                        listen: false,
-                      ).changeEndDate(date);
+                      Provider.of<DateProvider>(context, listen: false,).changeEndDate(date);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -284,11 +282,24 @@ class TransactionsHistoryState extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 22,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(0),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 16,
+                                            vertical: 16,
+                                          ),
                                         ),
+                                        onPressed: () {
+                                          Provider.of<CreateEditProvider>(context, listen: false).setEditTransactionInfo(category: list_categ[index], transac: list_trans[index]);
+                                          (isIncome)
+                                              ? context.goNamed('income_history_edit')
+                                              : context.goNamed('expenses_history_edit');
+                                        },
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -309,6 +320,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                                     Text(
                                                       list_categ[index].name,
                                                       style: TextStyle(
+                                                        color: Colors.black,
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.w400,
@@ -342,6 +354,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                                     Text(
                                                       '${list_trans[index].amount} ₽',
                                                       style: TextStyle(
+                                                        color: Colors.black,
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.w400,
@@ -350,6 +363,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                                     Text(
                                                       '${list_trans[index].transactionDate.toString().split(' ')[1].split(':')[0]}:${list_trans[index].transactionDate.toString().split(' ')[1].split(':')[1]}',
                                                       style: TextStyle(
+                                                        color: Colors.black,
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.w400,

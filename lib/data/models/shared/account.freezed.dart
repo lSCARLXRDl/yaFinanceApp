@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AccountDto {
 
- int get id; int get userid; String get name; String get balance; String get currency; DateTime get createdAt; DateTime get updatedAt;
+ int get id; int get userId; String? get name; String get balance; String get currency; DateTime get createdAt; DateTime get updatedAt;
 /// Create a copy of AccountDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AccountDtoCopyWith<AccountDto> get copyWith => _$AccountDtoCopyWithImpl<Account
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userid, userid) || other.userid == userid)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userid,name,balance,currency,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,name,balance,currency,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'AccountDto(id: $id, userid: $userid, name: $name, balance: $balance, currency: $currency, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'AccountDto(id: $id, userId: $userId, name: $name, balance: $balance, currency: $currency, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AccountDtoCopyWith<$Res>  {
   factory $AccountDtoCopyWith(AccountDto value, $Res Function(AccountDto) _then) = _$AccountDtoCopyWithImpl;
 @useResult
 $Res call({
- int id, int userid, String name, String balance, String currency, DateTime createdAt, DateTime updatedAt
+ int id, int userId, String? name, String balance, String currency, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -66,12 +66,12 @@ class _$AccountDtoCopyWithImpl<$Res>
 
 /// Create a copy of AccountDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userid = null,Object? name = null,Object? balance = null,Object? currency = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? name = freezed,Object? balance = null,Object? currency = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,userid: null == userid ? _self.userid : userid // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
+as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as String,currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -86,12 +86,12 @@ as DateTime,
 @JsonSerializable()
 
 class _AccountDto implements AccountDto {
-  const _AccountDto({required this.id, required this.userid, required this.name, required this.balance, required this.currency, required this.createdAt, required this.updatedAt});
+  const _AccountDto({required this.id, required this.userId, required this.name, required this.balance, required this.currency, required this.createdAt, required this.updatedAt});
   factory _AccountDto.fromJson(Map<String, dynamic> json) => _$AccountDtoFromJson(json);
 
 @override final  int id;
-@override final  int userid;
-@override final  String name;
+@override final  int userId;
+@override final  String? name;
 @override final  String balance;
 @override final  String currency;
 @override final  DateTime createdAt;
@@ -110,16 +110,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userid, userid) || other.userid == userid)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userid,name,balance,currency,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,name,balance,currency,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'AccountDto(id: $id, userid: $userid, name: $name, balance: $balance, currency: $currency, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'AccountDto(id: $id, userId: $userId, name: $name, balance: $balance, currency: $currency, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -130,7 +130,7 @@ abstract mixin class _$AccountDtoCopyWith<$Res> implements $AccountDtoCopyWith<$
   factory _$AccountDtoCopyWith(_AccountDto value, $Res Function(_AccountDto) _then) = __$AccountDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int userid, String name, String balance, String currency, DateTime createdAt, DateTime updatedAt
+ int id, int userId, String? name, String balance, String currency, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -147,12 +147,12 @@ class __$AccountDtoCopyWithImpl<$Res>
 
 /// Create a copy of AccountDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userid = null,Object? name = null,Object? balance = null,Object? currency = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? name = freezed,Object? balance = null,Object? currency = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_AccountDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,userid: null == userid ? _self.userid : userid // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
+as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as String,currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable

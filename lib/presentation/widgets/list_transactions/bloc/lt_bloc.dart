@@ -9,7 +9,7 @@ part 'lt_state.dart';
 class LtBloc extends Bloc<LtEvent, LtState> {
   LtBloc(this.transac_repo, this.categories_repo) : super(LtInitial()) {
     on<InitExpensesEvent>((event, emit) async {
-      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: DateTime.now(), endDate: DateTime.now());
+      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: DateTime.now(), endDate: DateTime.now());
       final transList = transacs.where((el) => el.category.isIncome == false).toList();
       final categoriesList = transList.map((el) => el.category).toList();
       final double totalAmount = transList.fold(0, (sum, transList) => sum + double.parse(transList.amount));
@@ -17,7 +17,7 @@ class LtBloc extends Bloc<LtEvent, LtState> {
     });
 
     on<InitIncomeEvent>((event, emit) async {
-      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: DateTime.now(), endDate: DateTime.now());
+      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: DateTime.now(), endDate: DateTime.now());
       final transList = transacs.where((el) => el.category.isIncome == true).toList();
       final categoriesList = transList.map((el) => el.category).toList();
       final double totalAmount = transList.fold(0, (sum, transList) => sum + double.parse(transList.amount));

@@ -7,8 +7,8 @@ part 'account.g.dart';
 abstract class AccountDto with _$AccountDto {
   const factory AccountDto({
     required int id,
-    required int userid,
-    required String name,
+    required int userId,
+    required String? name,
     required String balance,
     required String currency,
     required DateTime createdAt,

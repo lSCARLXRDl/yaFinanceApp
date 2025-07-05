@@ -86,6 +86,10 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFD4FAE6),
+          borderRadius: BorderRadius.circular(18)
+        ),
         padding: const EdgeInsets.all(16),
         width: 400,
         child: Column(
@@ -211,7 +215,11 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context, _selectedDate);
+                    if (_selectedDate.isAfter(DateTime.now())){
+                      _showAlertDialog(context);
+                    }
+                    else
+                      Navigator.pop(context, _selectedDate);
                   },
                   child: const Text('OK'),
                 ),
@@ -238,5 +246,26 @@ Future<DateTime?> showYaDatePicker({
       firstDate: firstDate ?? DateTime(2000),
       lastDate: lastDate ?? DateTime(2100),
     ),
+  );
+}
+
+
+void _showAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Выбраная дата недоступна"),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+                backgroundColor: Color(0xFF2AE881)
+            ),
+            onPressed: () => Navigator.pop(context),
+            child: const Text("ОК", style: TextStyle(color: Colors.black),),
+          ),
+        ],
+      );
+    },
   );
 }

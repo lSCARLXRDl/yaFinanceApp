@@ -10,7 +10,7 @@ part 'ta_state.dart';
 class TaBloc extends Bloc<TaEvent, TaState> {
   TaBloc(this.transac_repo, this.categories_repo) : super(TaInitial()) {
     on<InitExpensesEvent>((event, emit) async {
-      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: event.startDate, endDate: event.endDate);
+      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: event.startDate, endDate: event.endDate);
       final transList = transacs.where((el) => el.category.isIncome == false).toList();
       final categoriesList = transList.map((el) => el.category).toList();
 
@@ -39,7 +39,7 @@ class TaBloc extends Bloc<TaEvent, TaState> {
     });
 
     on<InitIncomeEvent>((event, emit) async {
-      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 1, startDate: event.startDate, endDate: event.endDate);
+      final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: event.startDate, endDate: event.endDate);
       final transList = transacs.where((el) => el.category.isIncome == true).toList();
       final categoriesList = transList.map((el) => el.category).toList();
 

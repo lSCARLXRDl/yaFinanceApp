@@ -14,7 +14,7 @@ import 'categories_mock.dart';
 class MockBankAccountRepository implements BankAccountRepository {
 
   final List<AccountDto> _bank_acc = [
-    AccountDto(id: 1, userid: 1, name: 'Основной счёт', balance: '65012.00',
+    AccountDto(id: 1, userId: 1, name: 'Основной счёт', balance: '65012.00',
   currency: '₽', createdAt: DateTime(2024, 9, 18, 18, 29),
   updatedAt: DateTime(2024, 9, 18, 18, 29))
   ];
@@ -29,11 +29,26 @@ class MockBankAccountRepository implements BankAccountRepository {
     final apiKey = dotenv.env['API_KEY'];
     try {
       final response = await dio.get(
-        'https://shmr-finance.ru/api/v1/accounts/3',
+        'https://shmr-finance.ru/api/v1/accounts/1',
         options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
       );
       final data = response.data;
       return AccountResponseMapper.fromDto(data);
+    } on DioException catch (e) {
+      throw Exception('Failed: ${e.message}');
+    }
+  }
+
+  Future<List<BankAccount>> getBankAccounts() async {
+    final apiKey = dotenv.env['API_KEY'];
+    try {
+      final response = await dio.get(
+        'https://shmr-finance.ru/api/v1/accounts',
+        options: Options(headers: {'Authorization': 'Bearer $apiKey'}),
+      );
+      final List<dynamic> data = response.data;
+      final cat = data.map((json) => AccountMapper.fromDto(AccountDto.fromJson(json))).toList();
+      return cat;
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
     }
