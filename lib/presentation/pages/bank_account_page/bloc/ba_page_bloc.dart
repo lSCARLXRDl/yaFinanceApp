@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
 
 import '../../../../data/database/account_db.dart';
-import '../../../../data/mappers/date_map.dart';
-import '../../../../data/repositories_impl/transactions_mock.dart';
 
 
 part 'ba_page_event.dart';
@@ -18,7 +16,7 @@ class BaPageBloc extends Bloc<BaPageEvent, BaPageState> {
     on<LoadAccountEvent>(_load);
   }
 
-  final MockBankAccountRepository account_repo;
+  final BankAccountRepositoryImpl account_repo;
   final DBAccountRepository db_account_repo;
 
   Future<bool> hasRealInternet() async {
@@ -37,7 +35,7 @@ class BaPageBloc extends Bloc<BaPageEvent, BaPageState> {
         emit(BaPageLoading());
       }
       if (await hasRealInternet()) {
-        final account = await account_repo.getBankAccount();
+        final account = await account_repo.getBankAccountById();
         db_account_repo.updateBankAccount(balance: account.balance, currency: account.currency, name: account.name);
       }
 

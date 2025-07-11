@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 import '../../../data/mappers/date_map.dart';
 import '../date_picker/date_picker.dart';
 import '../donut_chart/donut_chart.dart';
@@ -22,7 +25,7 @@ class TransactionsAnalysis extends StatelessWidget {
       child: BlocProvider(
         create:
             (_) =>
-                TaBloc(MockTransactionRepository(), MockCategoriesRepository()),
+                TaBloc(TransactionsRepositoryImpl(), CategoriesRepositoryImpl()),
         child: TransactionsAnalysisState(isIncome: isIncome),
       ),
     );

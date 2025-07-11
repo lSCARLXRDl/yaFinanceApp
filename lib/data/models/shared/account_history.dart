@@ -1,11 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ya_finance_app/data/models/shared/account_state.dart';
+import 'package:ya_finance_app/enums/change_type.dart';
 
 part 'account_history.freezed.dart';
 part 'account_history.g.dart';
-
-
-enum EnumChangeType{CREATION, MODIFICATION}
 
 @freezed
 abstract class AccountHistoryDto with _$AccountHistoryDto {

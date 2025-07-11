@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
 import '../../../data/repositories_impl/transactions_mock.dart';
 import '../../pages/bank_account_page/account_provider.dart';
@@ -22,7 +23,7 @@ class _ChartScreenState extends State<ChartScreen> with TickerProviderStateMixin
   late int showingTooltip;
   final Map<String, double> values;
   final BuildContext ccontext;
-  final _histoBloc = HistoBloc(MockTransactionRepository());
+  final _histoBloc = HistoBloc(TransactionsRepositoryImpl());
 
   List<bool> _isSelected = [true, false];
 

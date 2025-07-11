@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/data/models/request/transaction_request.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
 import '../../../data/mappers/date_map.dart';
 import '../../../data/repositories_impl/transactions_mock.dart';
@@ -31,7 +32,7 @@ class CreateEditProvider extends ChangeNotifier {
 
   //final getIt = GetIt.instance;
 
-  final transac_repo = MockTransactionRepository();
+  final transac_repo = TransactionsRepositoryImpl();
 
   void changeCategInfo(newCategInfo, {required isCreate}) {
     (isCreate) ? stateCreate = newCategInfo['categName'] : state = newCategInfo['categName'];

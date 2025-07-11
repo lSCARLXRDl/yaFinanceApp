@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
 import '../../../data/repositories_impl/transactions_mock.dart';
 import 'bloc_histo/histo_bloc.dart';
@@ -11,7 +12,7 @@ class AccountProvider extends ChangeNotifier {
   String balance = '';
   String type = 'day';
 
-  final histoBloc = HistoBloc(MockTransactionRepository());
+  final histoBloc = HistoBloc(TransactionsRepositoryImpl());
 
   void changeCurrency(String newCur) async{
     final prefs = await SharedPreferences.getInstance();

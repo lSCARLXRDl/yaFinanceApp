@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ya_finance_app/data/mappers/date_map.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:provider/provider.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 import 'package:ya_finance_app/presentation/widgets/transac_history/date_provider.dart';
 
 import '../create_edit_transac/create_edit_provider.dart';
@@ -24,7 +26,7 @@ class TransactionsHistory extends StatelessWidget {
       child: BlocProvider(
         create:
             (_) =>
-                ThBloc(MockTransactionRepository(), MockCategoriesRepository()),
+                ThBloc(TransactionsRepositoryImpl(), CategoriesRepositoryImpl()),
         child: TransactionsHistoryState(isIncome: isIncome),
       ),
     );

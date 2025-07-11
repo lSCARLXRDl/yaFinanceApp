@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 
+import '../../../data/api/api_client.dart';
 import 'bloc/ap_page_bloc.dart';
 
 class ArticlesPage extends StatefulWidget {
@@ -13,7 +16,7 @@ class ArticlesPage extends StatefulWidget {
 }
 
 class _ArticlesPageState extends State<ArticlesPage> {
-  final _apPageBloc = ApPageBloc(MockCategoriesRepository());
+  final _apPageBloc = ApPageBloc(CategoriesRepositoryImpl());
   final TextEditingController _controllerArticle = TextEditingController();
 
   @override

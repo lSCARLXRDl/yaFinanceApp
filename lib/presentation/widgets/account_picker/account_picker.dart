@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
 import 'package:ya_finance_app/presentation/widgets/create_edit_transac/create_edit_provider.dart';
+
+import '../../../data/api/api_client.dart';
 
 Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
   String? _accName = null;
   int? _accId = null;
-  final list_acc = await MockBankAccountRepository().getBankAccounts();
+  final list_acc = await BankAccountRepositoryImpl().getBankAccounts();
   // По условию у нас один счёт, поэтому просто беру первый элемент
   //Provider.of<CreateEditProvider>(context, listen: false).accIdCreate = list_acc[0].id;
   final dialog = await showModalBottomSheet<String?>(

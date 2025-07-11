@@ -2,13 +2,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/database/account_db.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 import 'package:ya_finance_app/presentation/pages/bank_account_page/bloc_histo/histo_bloc.dart';
 import 'package:ya_finance_app/presentation/widgets/spoiler/spoiler.dart';
+import '../../../data/api/api_client.dart';
 import '../../widgets/bank_account_histogram/bank_account_histogram.dart';
 import '../../widgets/currency_picker/currency_picker.dart';
 import 'account_provider.dart';
@@ -24,10 +28,10 @@ class BankAccountPage extends StatefulWidget {
 
 class _BankAccountPageState extends State<BankAccountPage> {
   final _baPageBloc = BaPageBloc(
-    MockBankAccountRepository(),
+    BankAccountRepositoryImpl(),
     DBAccountRepository(),
   );
-  final _histoBloc = HistoBloc(MockTransactionRepository());
+  final _histoBloc = HistoBloc(TransactionsRepositoryImpl());
   bool _isTextVisible = true;
   late ShakeDetector detector;
 

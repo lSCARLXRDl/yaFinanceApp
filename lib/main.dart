@@ -10,6 +10,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:ya_finance_app/presentation/widgets/create_edit_transac/create_edit_provider.dart';
 import 'package:ya_finance_app/router/home_router/home_router.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ya_finance_app/service_locator.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -28,6 +29,9 @@ void main() async {
     ),
   );
   await dotenv.load();
+
+  await setupDependencies();
+
   runApp(const FinanceApp());
 }
 

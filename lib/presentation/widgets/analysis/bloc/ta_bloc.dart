@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:ya_finance_app/data/mappers/percent_map.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
 part 'ta_event.dart';
 part 'ta_state.dart';
@@ -78,6 +80,6 @@ class TaBloc extends Bloc<TaEvent, TaState> {
     });
   }
 
-  final MockTransactionRepository transac_repo;
-  final MockCategoriesRepository categories_repo;
+  final TransactionsRepositoryImpl transac_repo;
+  final CategoriesRepositoryImpl categories_repo;
 }

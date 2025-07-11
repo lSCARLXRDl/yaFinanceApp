@@ -2,13 +2,14 @@ import 'dart:async';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:bloc/bloc.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 
 part 'sp_event.dart';
 
 part 'sp_state.dart';
 
 class SpPageBloc extends Bloc<SpPageEvent, SpPageState> {
-  final MockCategoriesRepository categories_repo;
+  final CategoriesRepositoryImpl categories_repo;
 
   SpPageBloc(this.categories_repo) : super(SpPageInitial()) {
     on<LoadStatesEvent>(_load);
@@ -20,7 +21,7 @@ class SpPageBloc extends Bloc<SpPageEvent, SpPageState> {
       if (state is! SearchLoaded) {
         emit(SearchLoading());
       }
-      final categoriesReq = await categories_repo.getCategoriesreal();
+      final categoriesReq = await categories_repo.getCategories();
       final categories = categoriesReq.where((el) => el.isIncome == event.isIncome).toList();
       final cat = extractTop(
         query: event.searchStr,
@@ -42,7 +43,7 @@ class SpPageBloc extends Bloc<SpPageEvent, SpPageState> {
       if (state is! SpPageLoaded) {
         emit(SpPageLoading());
       }
-      final categories = await categories_repo.getCategoriesreal();
+      final categories = await categories_repo.getCategories();
       final cat = categories.where((el) => el.isIncome == event.isIncome).toList();
       emit(SpPageLoaded(categList: cat));
     } catch (e) {
