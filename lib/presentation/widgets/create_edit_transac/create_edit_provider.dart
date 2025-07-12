@@ -1,10 +1,19 @@
+import 'dart:io';
+
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:ya_finance_app/data/database/transaction_db.dart';
 import 'package:ya_finance_app/data/models/request/transaction_request.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
+import '../../../data/database/transaction_event_db.dart';
 import '../../../data/mappers/date_map.dart';
-import '../../../data/repositories_impl/transactions_mock.dart';
-import '../../../domain/models/transaction_request.dart';
+import '../../../data/repositories_impl/transactions_db_repository.dart';
+
+final getIt = GetIt.instance;
+final TransactionEventDb TransacEventDB = getIt<TransactionEventDb>();
+final TransactionDb TransacDB = getIt<TransactionDb>();
 
 class CreateEditProvider extends ChangeNotifier {
   String sum = '0';
@@ -29,14 +38,26 @@ class CreateEditProvider extends ChangeNotifier {
 
   int transacId = -1;
 
-  //final getIt = GetIt.instance;
+  int newIncomeTransacId = -1;
+  int newExpenseTransacId = -1;
 
-  final transac_repo = MockTransactionRepository();
+  final transac_repo = TransactionsRepositoryImpl();
+  final transac_repo_db = TransactionsDBRepository();
+
 
   void changeCategInfo(newCategInfo, {required isCreate}) {
     (isCreate) ? stateCreate = newCategInfo['categName'] : state = newCategInfo['categName'];
     (isCreate) ? categIdCreate = newCategInfo['categId'] : categId = newCategInfo['categId'];
     notifyListeners();
+  }
+
+  void setnewTransacId({required isIncome}) async{
+    if (isIncome){
+      newIncomeTransacId = await getNewTransacId(isIncome: isIncome);
+    }
+    else {
+      newExpenseTransacId = await getNewTransacId(isIncome: isIncome);
+    }
   }
 
   void changeAccountInfo(newAccountInfo, {required isCreate}) {
@@ -78,7 +99,11 @@ class CreateEditProvider extends ChangeNotifier {
     comment = transac.comment;
   }
 
-  void updateCreateTransactionInfo() {
+  void updateCreateTransactionInfo({required isIncome}) async {
+    if (isIncome)
+      newIncomeTransacId += 1;
+    else
+      newExpenseTransacId += 1;
     accIdCreate = -1;
     categIdCreate = -1;
     sumCreate = '0';
@@ -89,7 +114,7 @@ class CreateEditProvider extends ChangeNotifier {
     commentCreate = '';
   }
 
-  void createTransac(BuildContext context) async {
+  void createTransac(BuildContext context, {required isIncome}) async {
     if (accIdCreate != -1 && categIdCreate != -1 && sumCreate != '0' && sumCreate != '') {
       final req = TransactionRequestDto(
         accountId: accIdCreate,
@@ -99,7 +124,24 @@ class CreateEditProvider extends ChangeNotifier {
             '${DateMapper.fromStringDate(nowDateCreate)}T${nowTimeCreate}:00.000Z',
         comment: commentCreate,
       );
-      final resp = await transac_repo.createTransaction(request: req);
+
+      if (!await hasRealInternet()) {
+        await TransacEventDB.into(TransacEventDB.transactionEvent).insert(TransactionEventCompanion.insert(
+          type: 'create',
+          data: Value(req.toString()),
+        ));
+      }
+      else {
+        final resp = await transac_repo.createTransaction(request: req);
+      }
+      if (isIncome)
+        await transac_repo_db.createTransaction(transacId: newIncomeTransacId, request: req);
+      else
+        await transac_repo_db.createTransaction(transacId: newExpenseTransacId, request: req);
+
+      List<TransactionItemData> allItems = await TransacDB.select(TransacDB.transactionItem).get();
+      print(allItems);
+
       Navigator.pop(context);
     }
     else {
@@ -116,7 +158,19 @@ class CreateEditProvider extends ChangeNotifier {
         transactionDate: '${DateMapper.fromStringDate(nDate)}T${nTime}:00.000Z',
         comment: comment,
       );
-      final resp = await transac_repo.updateTransaction(id: transacId, request: req);
+      if (!await hasRealInternet()) {
+        await TransacEventDB.into(TransacEventDB.transactionEvent).insert(TransactionEventCompanion.insert(
+          type: 'edit',
+          data: Value(req.toString()),
+          id: Value(transacId)
+        ));
+      }
+      else {
+        final resp = await transac_repo.updateTransaction(id: transacId, request: req);
+      }
+
+      await transac_repo_db.updateTransaction(id: transacId, request: req);
+
       Navigator.pop(context);
     }
     else {
@@ -124,14 +178,39 @@ class CreateEditProvider extends ChangeNotifier {
     }
   }
 
-  void deleteTransac(BuildContext context) async {
+  void deleteTransac(BuildContext context, {required isIncome}) async {
     if (transacId != -1) {
-      final resp = await transac_repo.deleteTransaction(id: transacId);
+      if (!await hasRealInternet()) {
+        await TransacEventDB.into(TransacEventDB.transactionEvent).insert(TransactionEventCompanion.insert(
+            type: 'delete',
+            id: Value((isIncome) ? newIncomeTransacId : newExpenseTransacId)
+        ));
+      }
+      else {
+        final resp = await transac_repo.deleteTransaction(id: transacId);
+      }
+
+      await transac_repo_db.deleteTransaction(id: (isIncome) ? newIncomeTransacId : newExpenseTransacId);
+
+      List<TransactionItemData> allItems = await TransacDB.select(TransacDB.transactionItem).get();
+      print(allItems);
+
+
       Navigator.pop(context);
     }
   }
 }
 
+
+Future<bool> hasRealInternet() async {
+  try {
+    final socket = await Socket.connect('8.8.8.8', 53, timeout: const Duration(seconds: 2));
+    await socket.close();
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
 void _showAlertDialog(BuildContext context) {
   showDialog(
@@ -151,4 +230,14 @@ void _showAlertDialog(BuildContext context) {
       );
     },
   );
+}
+
+Future<int> getNewTransacId({required isIncome}) async {
+  final transac_repo = TransactionsRepositoryImpl();
+  final transacs = await transac_repo.getTransactionsByPeriod(accountId: 149, startDate: DateTime.now(), endDate: DateTime.now());
+  final transList = transacs.where((el) => el.category.isIncome == isIncome).toList();
+  if (transList.length < 1)
+    return 0;
+  else
+    return transList.last.id + 1;
 }

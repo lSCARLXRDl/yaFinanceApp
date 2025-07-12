@@ -1,19 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
-import 'package:ya_finance_app/presentation/widgets/create_edit_transac/create_edit_provider.dart';
+import 'package:get_it/get_it.dart';
+import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
+import 'package:ya_finance_app/domain/models/bank_account.dart';
+
+final getIt = GetIt.instance;
 
 Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
   String? _accName = null;
   int? _accId = null;
-  final list_acc = await MockBankAccountRepository().getBankAccounts();
-  // По условию у нас один счёт, поэтому просто беру первый элемент
-  //Provider.of<CreateEditProvider>(context, listen: false).accIdCreate = list_acc[0].id;
+  late var list_acc;
+  if (await hasRealInternet()) {
+    list_acc = await BankAccountRepositoryImpl().getBankAccounts();
+  }
+  else {
+    list_acc = [BankAccount(id: 1, userid: 1, name: 'Основной счёт', balance: "13255", currency: "RUB", createdAt: DateTime.now(), updatedAt: DateTime.now())];
+  }
   final dialog = await showModalBottomSheet<String?>(
     context: context,
     builder: (BuildContext context) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.18 * list_acc.length,
+        height: MediaQuery.of(context).size.height * 0.25 * list_acc.length,
         decoration: BoxDecoration(
           color: Color(0xFFF7F2FA),
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -119,4 +127,15 @@ Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
     'accName': _accName,
     'accId': _accId
   };
+}
+
+
+Future<bool> hasRealInternet() async {
+  try {
+    final socket = await Socket.connect('8.8.8.8', 53, timeout: const Duration(seconds: 2));
+    await socket.close();
+    return true;
+  } catch (e) {
+    return false;
+  }
 }

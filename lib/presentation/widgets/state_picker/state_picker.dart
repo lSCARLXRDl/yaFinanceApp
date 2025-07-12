@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 import '../create_edit_transac/create_edit_provider.dart';
 import 'bloc/sp_bloc.dart';
 
 Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required bool isIncome}) async {
   String? _categName = null;
   int? _categId = null;
-  final _spPageBloc = SpPageBloc(MockCategoriesRepository());
+  final _spPageBloc = SpPageBloc(CategoriesRepositoryImpl());
   final TextEditingController _controllerArticle = TextEditingController();
   _spPageBloc.add(LoadStatesEvent(isIncome: isIncome));
 

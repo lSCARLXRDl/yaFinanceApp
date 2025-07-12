@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:ya_finance_app/data/mappers/date_map.dart';
+import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
+import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
 
 part 'th_event.dart';
@@ -49,6 +51,6 @@ class ThBloc extends Bloc<ThEvent, ThState> {
     });
   }
 
-  final MockTransactionRepository transac_repo;
-  final MockCategoriesRepository categories_repo;
+  final TransactionsRepositoryImpl transac_repo;
+  final CategoriesRepositoryImpl categories_repo;
 }

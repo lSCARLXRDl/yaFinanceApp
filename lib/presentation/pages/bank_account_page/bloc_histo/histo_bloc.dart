@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../../data/mappers/date_map.dart';
 import '../../../../data/repositories_impl/transactions_mock.dart';
+import '../../../../data/repositories_impl/transactions_repository_impl.dart';
 
 
 part 'histo_event.dart';
@@ -14,7 +15,7 @@ class HistoBloc extends Bloc<HistoEvent, HistoState> {
     on<LoadHistogram>(_load);
   }
 
-  final MockTransactionRepository transac_repo;
+  final TransactionsRepositoryImpl transac_repo;
 
   Future<void> _load(LoadHistogram event, Emitter<HistoState> emit) async {
     if (event.type == 'day'){
