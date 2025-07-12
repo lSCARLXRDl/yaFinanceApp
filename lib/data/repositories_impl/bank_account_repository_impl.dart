@@ -1,12 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/data/api/api_client.dart';
 import 'package:ya_finance_app/data/mappers/account_map.dart';
-import 'package:ya_finance_app/data/mappers/account_response_map.dart';
 import 'package:ya_finance_app/data/models/shared/account.dart';
-import 'package:ya_finance_app/domain/models/account_response.dart';
-import 'package:ya_finance_app/utils/list.dart';
 
 import '../../domain/models/account_history_response.dart';
 import '../../domain/models/bank_account.dart';
@@ -15,8 +11,6 @@ import '../mappers/account_history_response_map.dart';
 import '../models/request/account_create_request.dart';
 import '../models/request/account_update_request.dart';
 import '../models/response/account_history_response.dart';
-import '../models/response/account_response.dart';
-import 'categories_mock.dart';
 
 final getIt = GetIt.instance;
 

@@ -55,7 +55,7 @@ class TransactionsRepositoryImpl implements TransactionRepository {
       final response = await _dioClient.get(
         'transactions/$id',
       );
-      final data = response.data;
+      final data = response;
       final cat = TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(data));
       return cat;
     } on DioException catch (e) {
@@ -94,7 +94,7 @@ class TransactionsRepositoryImpl implements TransactionRepository {
       final response = await _dioClient.get(
         'transactions/account/${accountId}/period?startDate=${startDateR}&endDate=${endDateR}',
       );
-      final List<dynamic> data = response.data;
+      final List<dynamic> data = response;
       final cat = data.map((json) => TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(json))).toList();
       return cat;
     } on DioException catch (e) {

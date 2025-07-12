@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:worker_manager/worker_manager.dart';
 import 'package:ya_finance_app/presentation/pages/bank_account_page/account_provider.dart';
 import 'package:ya_finance_app/presentation/theme.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,8 @@ import 'package:ya_finance_app/presentation/widgets/create_edit_transac/create_e
 import 'package:ya_finance_app/router/home_router/home_router.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/service_locator.dart';
+
+import 'load_categories.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -31,6 +34,11 @@ void main() async {
   await dotenv.load();
 
   await setupDependencies();
+
+  await loadCategories();
+
+  await workerManager.dispose();
+  await workerManager.init();
 
   runApp(const FinanceApp());
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:ya_finance_app/presentation/pages/expenses_page.dart';
 import 'package:ya_finance_app/presentation/pages/settings_page.dart';
 import 'package:ya_finance_app/presentation/pages/articles_page/articles_page.dart';
@@ -9,6 +10,7 @@ import 'package:ya_finance_app/presentation/widgets/bank_account_edit/bank_accou
 import 'package:ya_finance_app/presentation/widgets/transac_history/transac_history.dart';
 import 'package:ya_finance_app/presentation/widgets/analysis/analysis.dart';
 
+import '../../presentation/widgets/create_edit_transac/create_edit_provider.dart';
 import '../../presentation/widgets/create_edit_transac/create_edit_transac.dart';
 import '../../presentation/widgets/nav_bar/nav_bar.dart';
 
@@ -34,6 +36,7 @@ final router = GoRouter(
               name: 'expenses',
               path: '/home/expenses',
               builder: (context, state) {
+                Provider.of<CreateEditProvider>(context, listen: false).setnewTransacId(isIncome: false);
                 return ExpensesPage(key: UniqueKey());
               },
               routes: [
@@ -87,7 +90,10 @@ final router = GoRouter(
             GoRoute(
               name: 'income',
               path: '/home/income',
-              builder: (context, state) => IncomePage(key: UniqueKey()),
+              builder: (context, state) {
+                Provider.of<CreateEditProvider>(context, listen: false).setnewTransacId(isIncome: true);
+                return IncomePage(key: UniqueKey());
+                },
               routes: [
                 GoRoute(
                   name: 'income_history',

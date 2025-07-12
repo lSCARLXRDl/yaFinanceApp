@@ -6,7 +6,6 @@ import '../models/bank_account.dart';
 
 abstract interface class BankAccountRepository {
 
-
   Future<BankAccount> getBankAccountById();
 
   Future<List<BankAccount>> getBankAccounts();

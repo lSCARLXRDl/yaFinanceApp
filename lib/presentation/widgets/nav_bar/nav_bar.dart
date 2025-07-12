@@ -38,11 +38,11 @@ class HomeTabsPage extends StatelessWidget {
               theme.bottomNavigationBarTheme.showUnselectedLabels,
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.w600,
-            fontSize: 18,
+            fontSize: 14,
           ),
           unselectedLabelStyle: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 18,
+            fontSize: 12,
           ),
           onTap: (index) => onTap(HomeTab.byIndex(index)),
           items: [

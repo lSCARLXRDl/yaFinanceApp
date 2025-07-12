@@ -69,7 +69,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
                 if (isCreate) {
                   Provider.of<CreateEditProvider>(context, listen: false).sumCreate = _controllerSum.text;
                   Provider.of<CreateEditProvider>(context, listen: false).commentCreate = _controllerComment.text;
-                  Provider.of<CreateEditProvider>(context, listen: false).createTransac(context);
+                  Provider.of<CreateEditProvider>(context, listen: false).createTransac(context, isIncome: isIncome);
                 }
                 else {
                   Provider.of<CreateEditProvider>(context, listen: false).sum = _controllerSum.text;
@@ -91,7 +91,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -146,7 +146,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -201,7 +201,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -217,7 +217,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
                           child: TextField(
                             controller: _controllerSum,
                             textAlign: TextAlign.right,
-                            keyboardType: TextInputType.number, // TODO
+                            keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(RegExp(r'[0-9.,-]')),
                               _DecimalTextInputFormatter(),
@@ -252,7 +252,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -296,7 +296,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -341,7 +341,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
                   Expanded(
@@ -372,12 +372,12 @@ class _TransactionsCreateEditState extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Provider.of<CreateEditProvider>(context, listen: false).deleteTransac(context);
+              Provider.of<CreateEditProvider>(context, listen: false).deleteTransac(context, isIncome: isIncome);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
-                horizontal: 145,
+                horizontal: 110,
               ),
               child: Text(
                 (isIncome) ?

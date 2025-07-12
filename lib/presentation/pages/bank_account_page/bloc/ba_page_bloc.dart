@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:ya_finance_app/data/repositories_impl/bank_account_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
 
 import '../../../../data/database/account_db.dart';

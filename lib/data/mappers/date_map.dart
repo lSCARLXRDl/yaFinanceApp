@@ -28,6 +28,18 @@ class DateMapper {
     return DateTime(year, month, day, hour, minute, second);
   }
 
+  static DateTime toFullfromTZ(String date) {
+    String ddate = date.split('T')[0];
+    String ttime = date.split('T')[1].split('.')[0];
+    int year = int.parse(ddate.split('-')[0]);
+    int month = int.parse(ddate.split('-')[1]);
+    int day = int.parse(ddate.split('-')[2]);
+    int hour = int.parse(ttime.split(':')[0]);
+    int minute = int.parse(ttime.split(':')[1]);
+    int second = int.parse(ttime.split(':')[2]);
+    return DateTime(year, month, day, hour, minute, second);
+  }
+
   static String fromTime(DateTime date) {
     String hour = (date.hour.toString().length == 1) ? '0${date.hour}' : date.hour.toString();
     String minute = (date.minute.toString().length == 1) ? '0${date.minute}' : date.minute.toString();

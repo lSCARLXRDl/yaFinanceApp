@@ -78,8 +78,8 @@ class _ListTransactionsState extends State<ListTransactions> {
             body:
                 (state is LtLoaded)
                     ? () {
-                      var list_trans = state.transList;
-                      var list_categ = state.categList;
+                      List<dynamic> list_trans = state.transList;
+                      List<dynamic> list_categ = state.categList;
                       return Column(
                         children: [
                           Container(
@@ -206,7 +206,7 @@ class _ListTransactionsState extends State<ListTransactions> {
                   Provider.of<CreateEditProvider>(
                     context,
                     listen: false,
-                  ).updateCreateTransactionInfo();
+                  ).updateCreateTransactionInfo(isIncome: isIncome);
                   (isIncome)
                       ? context.goNamed('income_create')
                       : context.goNamed('expenses_create');

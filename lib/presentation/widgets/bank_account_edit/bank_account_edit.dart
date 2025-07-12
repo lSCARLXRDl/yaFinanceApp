@@ -154,7 +154,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
-                horizontal: 145,
+                horizontal: 120,
               ),
               child: Text(
                 'Удалить счет',
