@@ -31,7 +31,7 @@ class TransactionsRepositoryImpl implements TransactionRepository {
             "comment": request.comment
           }
       );
-      return TransactionMapper.fromDto(TransactionDto.fromJson(response.data));
+      return TransactionMapper.fromDto(TransactionDto.fromJson(response));
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
     }
@@ -79,7 +79,7 @@ class TransactionsRepositoryImpl implements TransactionRepository {
             "comment": request.comment
           }
       );
-      return TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(response.data));
+      return TransactionResponseMapper.fromDto(TransactionResponseDto.fromJson(response));
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
     }

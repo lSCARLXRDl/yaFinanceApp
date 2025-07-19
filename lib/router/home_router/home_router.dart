@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/presentation/pages/expenses_page.dart';
@@ -10,13 +11,35 @@ import 'package:ya_finance_app/presentation/widgets/bank_account_edit/bank_accou
 import 'package:ya_finance_app/presentation/widgets/transac_history/transac_history.dart';
 import 'package:ya_finance_app/presentation/widgets/analysis/analysis.dart';
 
+import '../../presentation/pages/pin_code_page/pin_code_provider.dart';
+import '../../presentation/pages/pin_code_page/pin_code_screen.dart';
 import '../../presentation/widgets/create_edit_transac/create_edit_provider.dart';
 import '../../presentation/widgets/create_edit_transac/create_edit_transac.dart';
+import '../../presentation/widgets/haptick/haptick_provider.dart';
 import '../../presentation/widgets/nav_bar/nav_bar.dart';
 
 final router = GoRouter(
-  initialLocation: '/home/expenses',
+  initialLocation: '/auth/pin',
+  redirect: (context, state) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final isAuthRoute = state.uri.path.startsWith('/auth');
+    dynamic _isAuthenticated = Provider.of<AuthProvider>(context, listen: false).isAuthenticated;
+
+    if (!_isAuthenticated && !isAuthRoute) {
+      return '/auth/pin';
+    }
+    if (_isAuthenticated && isAuthRoute) {
+      return '/home/expenses';
+    }
+    return null;
+  },
   routes: [
+
+    GoRoute(
+      path: '/auth/pin',
+      builder: (context, state) => const PinCodeScreen(type: 'auth',),
+    ),
+
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) {
         final hideTabBarRoutes = {'/home/bank_account/edit'};
@@ -26,7 +49,12 @@ final router = GoRouter(
         return HomeTabsPage(
           tab: shouldHideTabBar ? null : HomeTab.byIndex(shell.currentIndex),
           child: shell,
-          onTap: (value) => shell.goBranch(value.index),
+          onTap: (value) {
+            if (context.read<HaptickProvider>().isHaptick) {
+              HapticFeedback.heavyImpact();
+            }
+            shell.goBranch(value.index);
+          },
         );
       },
       branches: [
@@ -175,7 +203,16 @@ final router = GoRouter(
               name: 'settings',
               path: '/home/settings',
               builder: (context, state) => SettingsPage(key: UniqueKey()),
-              routes: [],
+              routes: [
+                GoRoute(
+                  name: 'settings_edit_pin',
+                  path: 'edit_pin',
+                  builder: (context, state) {
+                    return PinCodeScreen(type: 'edit');
+                  },
+                  routes: [],
+                ),
+              ],
             ),
           ],
         ),

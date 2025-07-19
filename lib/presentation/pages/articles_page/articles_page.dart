@@ -6,6 +6,7 @@ import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
 
 import '../../../data/api/api_client.dart';
+import '../../../l10n/app_localizations.dart';
 import 'bloc/ap_page_bloc.dart';
 
 class ArticlesPage extends StatefulWidget {
@@ -36,9 +37,9 @@ class _ArticlesPageState extends State<ArticlesPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        backgroundColor: Color(0xFF2AE881),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          'Мои статьи',
+          AppLocalizations.of(context)!.myArticles,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
@@ -62,7 +63,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFFECE6F0),
+                    color: Theme.of(context).cardColor,
                     border: Border.symmetric(
                       horizontal: BorderSide(
                         color: Color(0xFFCAC4D0),
@@ -91,14 +92,10 @@ class _ArticlesPageState extends State<ArticlesPage> {
                             controller: _controllerArticle,
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
-                              hintText: 'Найти статью',
+                              hintText: AppLocalizations.of(context)!.findArticle,
                               border: InputBorder.none,
                             ),
-                            style: TextStyle(
-                              color: Color(0xFF49454F),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
                         Expanded(
@@ -120,7 +117,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).cardColor,
                             border: Border.symmetric(
                               horizontal: BorderSide(
                                 color: Color(0xFFCAC4D0),
@@ -145,10 +142,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
                                     Container(width: 15),
                                     Text(
                                       list_categ[index].name,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                                      style: Theme.of(context).textTheme.titleSmall
                                     ),
                                   ],
                                 ),

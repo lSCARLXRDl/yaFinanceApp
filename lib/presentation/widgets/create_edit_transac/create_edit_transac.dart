@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ya_finance_app/presentation/widgets/create_edit_transac/create_edit_provider.dart';
 import 'package:ya_finance_app/presentation/widgets/state_picker/state_picker.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../account_picker/account_picker.dart';
 import '../date_picker/date_picker.dart';
 import '../time_picker/time_picker.dart';
@@ -54,9 +55,9 @@ class _TransactionsCreateEditState extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        backgroundColor: Color(0xFF2AE881),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          (isIncome) ? 'Мои доходы' : 'Мои расходы',
+          (isIncome) ? AppLocalizations.of(context)!.expenses : AppLocalizations.of(context)!.income,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
@@ -85,7 +86,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFEF7FF),
+              color: Theme.of(context).cardColor,
               border: Border(
                 bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
               ),
@@ -96,12 +97,12 @@ class _TransactionsCreateEditState extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Счет',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                    AppLocalizations.of(context)!.bankAcc,
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFEF7FF),
+                        backgroundColor: Theme.of(context).cardColor,
                         padding: EdgeInsets.symmetric(vertical: 12),
                         elevation: 0
                     ),
@@ -111,11 +112,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
                           (isCreate)
                             ? Provider.of<CreateEditProvider>(context).accountCreate
                             : Provider.of<CreateEditProvider>(context).account,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
                         ),
                         SizedBox(width: 10,),
                         Icon(
@@ -140,7 +137,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFEF7FF),
+              color: Theme.of(context).cardColor,
               border: Border(
                 bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
               ),
@@ -151,12 +148,12 @@ class _TransactionsCreateEditState extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Статья',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                      AppLocalizations.of(context)!.article,
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFEF7FF),
+                      backgroundColor: Theme.of(context).cardColor,
                       padding: EdgeInsets.symmetric(vertical: 12),
                       elevation: 0
                     ),
@@ -166,11 +163,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
                           (isCreate)
                               ? Provider.of<CreateEditProvider>(context).stateCreate
                               : Provider.of<CreateEditProvider>(context).state,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
                         ),
                         SizedBox(width: 10,),
                         Icon(
@@ -195,7 +188,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFEF7FF),
+              color: Theme.of(context).cardColor,
               border: Border(
                 bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
               ),
@@ -206,8 +199,8 @@ class _TransactionsCreateEditState extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Сумма',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                      AppLocalizations.of(context)!.amount,
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -226,10 +219,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
                               hintText: Provider.of<CreateEditProvider>(context).sumCreate,
                               border: InputBorder.none,
                             ),
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context).textTheme.titleSmall
                           ),
                         ),
                       ],
@@ -238,7 +228,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
                   SizedBox(width: 10),
                   Text(
                     '₽',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                 ],
               ),
@@ -246,7 +236,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFEF7FF),
+              color: Theme.of(context).cardColor,
               border: Border(
                 bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
               ),
@@ -257,8 +247,8 @@ class _TransactionsCreateEditState extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Дата',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                      AppLocalizations.of(context)!.date,
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -270,18 +260,14 @@ class _TransactionsCreateEditState extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),
-                      backgroundColor: Color(0xFFFEF7FF),
+                      backgroundColor: Theme.of(context).cardColor,
                       elevation: 0,
                     ),
                     child: Text(
                       (isCreate)
                           ? Provider.of<CreateEditProvider>(context).nowDateCreate
                           : Provider.of<CreateEditProvider>(context).nDate,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall
                     ),
                   ),
                 ],
@@ -290,7 +276,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFEF7FF),
+              color: Theme.of(context).cardColor,
               border: Border(
                 bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
               ),
@@ -301,8 +287,8 @@ class _TransactionsCreateEditState extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Время',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                      AppLocalizations.of(context)!.time,
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -315,18 +301,14 @@ class _TransactionsCreateEditState extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),
-                      backgroundColor: Color(0xFFFEF7FF),
+                      backgroundColor: Theme.of(context).cardColor,
                       elevation: 0,
                     ),
                     child: Text(
                       (isCreate)
                           ? Provider.of<CreateEditProvider>(context).nowTimeCreate
                           : Provider.of<CreateEditProvider>(context).nTime,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall
                     ),
                   ),
                 ],
@@ -335,7 +317,7 @@ class _TransactionsCreateEditState extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFEF7FF),
+              color: Theme.of(context).cardColor,
               border: Border(
                 bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
               ),
@@ -349,13 +331,10 @@ class _TransactionsCreateEditState extends StatelessWidget {
                       controller: _controllerComment,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
-                        hintText: 'Комментарий',
+                        hintText: AppLocalizations.of(context)!.comment,
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall
                     ),
                   ),
                 ],

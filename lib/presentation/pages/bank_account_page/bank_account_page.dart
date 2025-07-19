@@ -13,6 +13,7 @@ import 'package:ya_finance_app/data/repositories_impl/transactions_repository_im
 import 'package:ya_finance_app/presentation/pages/bank_account_page/bloc_histo/histo_bloc.dart';
 import 'package:ya_finance_app/presentation/widgets/spoiler/spoiler.dart';
 import '../../../data/api/api_client.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../widgets/bank_account_histogram/bank_account_histogram.dart';
 import '../../widgets/currency_picker/currency_picker.dart';
 import 'account_provider.dart';
@@ -72,9 +73,9 @@ class _BankAccountPageState extends State<BankAccountPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        backgroundColor: Color(0xFF2AE881),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          'Мой счет',
+          AppLocalizations.of(context)!.myBankAcc,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
@@ -117,7 +118,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFD4FAE6),
+                        color: Theme.of(context).secondaryHeaderColor,
                         border: Border.symmetric(
                           horizontal: BorderSide(
                             color: Color(0xFFCAC4D0),
@@ -141,10 +142,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
                                   Provider.of<AccountProvider>(
                                     context,
                                   ).account_name,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge
                                 ),
                               ],
                             ),
@@ -153,12 +151,10 @@ class _BankAccountPageState extends State<BankAccountPage> {
                                 (_isTextVisible)
                                     ? Text(
                                       '${Provider.of<AccountProvider>(context).balance} ${Provider.of<AccountProvider>(context).currency}',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                                      style: Theme.of(context).textTheme.titleLarge,
                                     )
                                     : ParticleContainer(
+                                    particleColor: Theme.of(context).colorScheme.primary,
                                       width: 100,
                                       height: 20,
                                     ),
@@ -176,7 +172,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFD4FAE6),
+                        color: Theme.of(context).secondaryHeaderColor,
                         border: Border(
                           bottom: BorderSide(
                             color: Color(0xFFCAC4D0),
@@ -186,7 +182,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
                       ),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFD4FAE6),
+                          backgroundColor: Theme.of(context).secondaryHeaderColor,
                           elevation: 0,
                           padding: EdgeInsets.symmetric(
                             horizontal: 16,
@@ -206,12 +202,8 @@ class _BankAccountPageState extends State<BankAccountPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Валюта',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                              ),
+                              AppLocalizations.of(context)!.currency,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                             Row(
                               children: [
@@ -219,11 +211,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
                                   Provider.of<AccountProvider>(
                                     context,
                                   ).currency,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Container(width: 20),
                                 Icon(
@@ -272,7 +260,7 @@ class _BankAccountPageState extends State<BankAccountPage> {
         height: 80,
         child: FloatingActionButton(
           elevation: 0,
-          backgroundColor: Color(0xFF2AE881),
+          backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: () {},
           child: Icon(Icons.add, color: Colors.white, size: 40),
           shape: RoundedRectangleBorder(

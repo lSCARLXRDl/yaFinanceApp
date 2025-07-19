@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../pages/bank_account_page/account_provider.dart';
 
 class BankAccountEdit extends StatefulWidget {
@@ -31,9 +32,9 @@ class _BankAccountEditState extends State<BankAccountEdit> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        backgroundColor: Color(0xFF2AE881),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          'Мой счет',
+          AppLocalizations.of(context)!.myBankAcc,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
@@ -60,7 +61,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
                 flex: 9,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFFFFFFFF),
+                    color: Theme.of(context).cardColor,
                     border: Border(
                       bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
                     ),
@@ -87,10 +88,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
                                     hintText: Provider.of<AccountProvider>(context, listen: false).account_name,
                                     border: InputBorder.none,
                                   ),
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleSmall
                                 ),
                               ),
                               Expanded(flex: 1, child: Container()),
@@ -104,10 +102,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
                                     hintText: Provider.of<AccountProvider>(context, listen: false).balance,
                                     border: InputBorder.none,
                                   ),
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleSmall
                                 ),
                               ),
                             ],
@@ -115,10 +110,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
                         ),
                         Text(
                           ' ${Provider.of<AccountProvider>(context).currency}',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
                         ),
                       ],
                     ),
@@ -157,7 +149,7 @@ class _BankAccountEditState extends State<BankAccountEdit> {
                 horizontal: 120,
               ),
               child: Text(
-                'Удалить счет',
+                AppLocalizations.of(context)!.deleteBankAcc,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),

@@ -5,6 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
 import 'package:ya_finance_app/domain/models/bank_account.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 final getIt = GetIt.instance;
 
 Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
@@ -23,7 +25,7 @@ Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
       return Container(
         height: MediaQuery.of(context).size.height * 0.25 * list_acc.length,
         decoration: BoxDecoration(
-          color: Color(0xFFF7F2FA),
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         child: Column(
@@ -46,7 +48,7 @@ Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
                 itemBuilder: (context, index) {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF7F2FA),
+                      backgroundColor: Theme.of(context).cardColor,
                       elevation: 0,
                       padding: EdgeInsets.symmetric(
                         horizontal: 16,
@@ -74,11 +76,7 @@ Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
                         SizedBox(width: 10),
                         Text(
                           list_acc[index].name,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
                         ),
                       ],
                     ),
@@ -107,12 +105,9 @@ Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
                     Icon(Icons.cancel_outlined, color: Colors.white, size: 30),
                     SizedBox(width: 10),
                     Text(
-                      'Отмена',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
+                        AppLocalizations.of(context)!.cancel,
+                      style: TextStyle(color: Colors.white, fontSize: 15,
+                        fontWeight: FontWeight.w400,)
                     ),
                   ],
                 ),

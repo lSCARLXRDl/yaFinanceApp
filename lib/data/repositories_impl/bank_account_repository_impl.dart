@@ -23,7 +23,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
       final response = await _dioClient.get(
         'accounts',
       );
-      final List<dynamic> data = response.data;
+      final List<dynamic> data = response;
       final cat = data.map((json) => AccountMapper.fromDto(AccountDto.fromJson(json))).toList();
       return cat[0];
     } on DioException catch (e) {
@@ -37,7 +37,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
       final response = await _dioClient.get(
         'accounts',
       );
-      final List<dynamic> data = response.data;
+      final List<dynamic> data = response;
       final cat = data.map((json) => AccountMapper.fromDto(AccountDto.fromJson(json))).toList();
       return cat;
     } on DioException catch (e) {
@@ -56,7 +56,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
             "currency": request.currency
           }
       );
-      return AccountMapper.fromDto(AccountDto.fromJson(response.data));
+      return AccountMapper.fromDto(AccountDto.fromJson(response));
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
     }
@@ -73,7 +73,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
             "currency": request.currency
           }
       );
-      return AccountMapper.fromDto(AccountDto.fromJson(response.data));
+      return AccountMapper.fromDto(AccountDto.fromJson(response));
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
     }
@@ -97,7 +97,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
       final response = await _dioClient.get(
         'accounts/$id/history',
       );
-      final data = response.data;
+      final data = response;
       print(AccountHistoryResponseDto.fromJson(data));
       return AccountHistoryResponseMapper.fromDto(AccountHistoryResponseDto.fromJson(data));
     } on DioException catch (e) {
