@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ya_finance_app/data/mappers/date_map.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 Future<String?> showYaTimePicker(BuildContext context) async {
   final TimeOfDay? picked = await showTimePicker(
+    cancelText: AppLocalizations.of(context)!.cancel,
+    helpText: AppLocalizations.of(context)!.selectTime,
     context: context,
     initialTime: TimeOfDay.now(),
     builder: (BuildContext context, Widget? child) {
@@ -14,9 +18,9 @@ Future<String?> showYaTimePicker(BuildContext context) async {
           child: Theme(
             data: ThemeData.light().copyWith(
               colorScheme: ColorScheme.light(
-                primary: Color(0xFF2AE881),
+                primary: Theme.of(context).colorScheme.primary,
                 onPrimary: Colors.white,
-                surface: Color(0xFFD4FAE6),
+                surface: Theme.of(context).secondaryHeaderColor,
               ),
             ),
             child: child!,

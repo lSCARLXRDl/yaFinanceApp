@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
+import '../../../l10n/app_localizations.dart';
 import '../create_edit_transac/create_edit_provider.dart';
 import 'bloc/sp_bloc.dart';
 
@@ -19,7 +20,7 @@ Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required boo
       return Container(
         height: MediaQuery.of(context).size.height * 0.45,
         decoration: BoxDecoration(
-          color: Color(0xFFF7F2FA),
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         child: Column(
@@ -49,7 +50,7 @@ Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required boo
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Color(0xFFECE6F0),
+                          color: Theme.of(context).cardColor,
                           border: Border.symmetric(
                             horizontal: BorderSide(color: Color(0xFFCAC4D0), width: 1),
                           ),
@@ -80,14 +81,10 @@ Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required boo
                                   controller: _controllerArticle,
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
-                                    hintText: 'Найти статью',
+                                    hintText: AppLocalizations.of(context)!.findArticle,
                                     border: InputBorder.none,
                                   ),
-                                  style: TextStyle(
-                                    color: Color(0xFF49454F),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
                               ),
                               Expanded(
@@ -109,7 +106,7 @@ Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required boo
                             itemBuilder: (context, index) {
                               return Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).cardColor,
                                   border: Border.symmetric(
                                     horizontal: BorderSide(
                                       color: Color(0xFFCAC4D0),
@@ -124,7 +121,7 @@ Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required boo
                                       vertical: 22,
                                     ),
                                     elevation: 0,
-                                    backgroundColor: Colors.white
+                                    backgroundColor: Theme.of(context).cardColor
                                   ),
                                   onPressed: () {
                                     _categName = list_categ[index].name;
@@ -140,11 +137,7 @@ Future<Map<String, dynamic>> showStatePicker(BuildContext context, {required boo
                                       Container(width: 15),
                                       Text(
                                         list_categ[index].name,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                        style: Theme.of(context).textTheme.titleSmall
                                       ),
                                     ],
                                   ),

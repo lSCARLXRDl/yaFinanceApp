@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 Future<String?> showCurrencyPicker(BuildContext context) async {
   String? cur = null;
   final dialog = await showModalBottomSheet<String?>(
     context: context,
     builder: (BuildContext context) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.40,
         decoration: BoxDecoration(
-          color: Color(0xFFF7F2FA),
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         child: Column(
@@ -34,7 +36,7 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFF7F2FA),
+                    backgroundColor: Theme.of(context).cardColor,
                     elevation: 0,
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                     shape: RoundedRectangleBorder(
@@ -52,17 +54,13 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                          color: Theme.of(context).textTheme.titleMedium!.color,
                         ),
                       ),
                       SizedBox(width: 20),
                       Text(
-                        'Российский рубль ₽',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        '${AppLocalizations.of(context)!.rub} ₽',
+                        style: Theme.of(context).textTheme.titleMedium
                       ),
                     ],
                   ),
@@ -79,7 +77,7 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFF7F2FA),
+                    backgroundColor: Theme.of(context).cardColor,
                     elevation: 0,
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                     shape: RoundedRectangleBorder(
@@ -97,17 +95,13 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                          color: Theme.of(context).textTheme.titleMedium!.color,
                         ),
                       ),
                       SizedBox(width: 20),
                       Text(
-                        'Американский доллар \$',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        '${AppLocalizations.of(context)!.dol} \$',
+                        style: Theme.of(context).textTheme.titleMedium
                       ),
                     ],
                   ),
@@ -118,7 +112,7 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
               flex: 1,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFF7F2FA),
+                  backgroundColor: Theme.of(context).cardColor,
                   elevation: 0,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                   shape: RoundedRectangleBorder(
@@ -136,17 +130,13 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
-                        color: Colors.black,
+                        color: Theme.of(context).textTheme.titleMedium!.color
                       ),
                     ),
                     SizedBox(width: 20),
                     Text(
-                      'Евро',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
+                      AppLocalizations.of(context)!.euro,
+                      style: Theme.of(context).textTheme.titleMedium
                     ),
                   ],
                 ),
@@ -172,7 +162,7 @@ Future<String?> showCurrencyPicker(BuildContext context) async {
                     Icon(Icons.cancel_outlined, color: Colors.white, size: 30),
                     SizedBox(width: 10),
                     Text(
-                      'Отмена',
+                      AppLocalizations.of(context)!.cancel,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,

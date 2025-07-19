@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 import 'package:ya_finance_app/presentation/widgets/transac_history/date_provider.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../create_edit_transac/create_edit_provider.dart';
 import '../date_picker/date_picker.dart';
 import 'bloc/th_bloc.dart';
@@ -61,9 +62,9 @@ class TransactionsHistoryState extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 80,
-            backgroundColor: Color(0xFF2AE881),
+            backgroundColor: Theme.of(context).colorScheme.primary,
             title: Text(
-              'Моя история',
+              AppLocalizations.of(context)!.myHistory,
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
             ),
             centerTitle: true,
@@ -92,14 +93,14 @@ class TransactionsHistoryState extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFD4FAE6),
+                  color: Theme.of(context).secondaryHeaderColor,
                   border: Border(
                     bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
                   ),
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFD4FAE6),
+                    backgroundColor: Theme.of(context).secondaryHeaderColor,
                     elevation: 0,
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
@@ -115,23 +116,15 @@ class TransactionsHistoryState extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Начало',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                          AppLocalizations.of(context)!.start,
+                        style: Theme.of(context).textTheme.titleLarge
                       ),
                       Text(
                         Provider.of<DateProvider>(
                           context,
                           listen: false,
                         ).startDate,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge
                       ),
                     ],
                   ),
@@ -140,14 +133,14 @@ class TransactionsHistoryState extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFD4FAE6),
+                  color: Theme.of(context).secondaryHeaderColor,
                   border: Border(
                     bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
                   ),
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFD4FAE6),
+                    backgroundColor: Theme.of(context).secondaryHeaderColor,
                     elevation: 0,
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
@@ -160,23 +153,15 @@ class TransactionsHistoryState extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Конец',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                          AppLocalizations.of(context)!.end,
+                        style: Theme.of(context).textTheme.titleLarge
                       ),
                       Text(
                         Provider.of<DateProvider>(
                           context,
                           listen: false,
                         ).endDate,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge
                       ),
                     ],
                   ),
@@ -184,7 +169,7 @@ class TransactionsHistoryState extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFD4FAE6),
+                  color: Theme.of(context).secondaryHeaderColor,
                   border: Border(
                     bottom: BorderSide(color: Color(0xFFCAC4D0), width: 1),
                   ),
@@ -198,29 +183,22 @@ class TransactionsHistoryState extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Сортировка',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
+                          AppLocalizations.of(context)!.sorting,
+                        style: Theme.of(context).textTheme.titleLarge
                       ),
                       DropdownButton<String>(
-                        dropdownColor: Colors.white,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        dropdownColor: Theme.of(context).secondaryHeaderColor,
+                        style: Theme.of(context).textTheme.titleLarge,
                         value:
                             Provider.of<DateProvider>(
                               context,
                               listen: true,
                             ).sortType,
-                        hint: const Text('Выберите вариант'),
-                        items: const [
-                          DropdownMenuItem(value: '1', child: Text('Без')),
-                          DropdownMenuItem(value: '2', child: Text('По дате')),
-                          DropdownMenuItem(value: '3', child: Text('По сумме')),
+                        hint: Text(AppLocalizations.of(context)!.select),
+                        items:  [
+                          DropdownMenuItem(value: '1', child: Text(AppLocalizations.of(context)!.without)),
+                          DropdownMenuItem(value: '2', child: Text(AppLocalizations.of(context)!.byDate)),
+                          DropdownMenuItem(value: '3', child: Text(AppLocalizations.of(context)!.byAmount)),
                         ],
                         onChanged: (String? newValue) {
                           Provider.of<DateProvider>(
@@ -242,7 +220,7 @@ class TransactionsHistoryState extends StatelessWidget {
                           return Column(
                             children: [
                               Container(
-                                color: Color(0xFFD4FAE6),
+                                color: Theme.of(context).secondaryHeaderColor,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 16,
@@ -253,18 +231,12 @@ class TransactionsHistoryState extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Сумма',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                        AppLocalizations.of(context)!.amount,
+                                        style: Theme.of(context).textTheme.titleLarge
                                       ),
                                       Text(
                                         '${state.totalAmount.toString()} ₽',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                        style: Theme.of(context).textTheme.titleLarge
                                       ),
                                     ],
                                   ),
@@ -276,7 +248,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return Container(
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: Theme.of(context).cardColor,
                                         border: Border(
                                           bottom: BorderSide(
                                             color: Color(0xFFCAC4D0),
@@ -286,7 +258,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                       ),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
+                                          backgroundColor: Theme.of(context).cardColor,
                                           elevation: 0,
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(0),
@@ -321,12 +293,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                                   children: [
                                                     Text(
                                                       list_categ[index].name,
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
+                                                      style: Theme.of(context).textTheme.titleSmall
                                                     ),
                                                     if (list_trans[index]
                                                             .comment !=
@@ -334,14 +301,7 @@ class TransactionsHistoryState extends StatelessWidget {
                                                       Text(
                                                         list_trans[index]
                                                             .comment,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: Color(
-                                                            0xFF49454F,
-                                                          ),
-                                                        ),
+                                                        style: Theme.of(context).textTheme.titleSmall
                                                       ),
                                                   ],
                                                 ),
@@ -355,21 +315,11 @@ class TransactionsHistoryState extends StatelessWidget {
                                                   children: [
                                                     Text(
                                                       '${list_trans[index].amount} ₽',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
+                                                      style: Theme.of(context).textTheme.titleSmall
                                                     ),
                                                     Text(
                                                       '${list_trans[index].transactionDate.toString().split(' ')[1].split(':')[0]}:${list_trans[index].transactionDate.toString().split(' ')[1].split(':')[1]}',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
+                                                      style: Theme.of(context).textTheme.titleSmall
                                                     ),
                                                   ],
                                                 ),

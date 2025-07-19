@@ -7,6 +7,7 @@ import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl
 import 'package:ya_finance_app/data/repositories_impl/transactions_mock.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 import '../../../data/mappers/date_map.dart';
+import '../../../l10n/app_localizations.dart';
 import '../date_picker/date_picker.dart';
 import '../donut_chart/donut_chart.dart';
 import '../expandable_list/expandable_list.dart';
@@ -58,9 +59,9 @@ class TransactionsAnalysisState extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 80,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             title: Text(
-              'Анализ',
+              AppLocalizations.of(context)!.analyze,
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
             ),
             centerTitle: true,
@@ -69,7 +70,7 @@ class TransactionsAnalysisState extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   border: Border(
                     bottom: BorderSide(color: Color(0xFFCAC4D0), width: 2),
                   ),
@@ -83,15 +84,12 @@ class TransactionsAnalysisState extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Период: начало',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
+                          AppLocalizations.of(context)!.start,
+                        style: Theme.of(context).textTheme.titleSmall
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF2AE881),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           textStyle: TextStyle(),
                         ),
                         onPressed: () async {
@@ -107,11 +105,7 @@ class TransactionsAnalysisState extends StatelessWidget {
                             context,
                             listen: false,
                           ).startDate,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
                         ),
                       ),
                     ],
@@ -120,7 +114,7 @@ class TransactionsAnalysisState extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   border: Border(
                     bottom: BorderSide(color: Color(0xFFCAC4D0), width: 2),
                   ),
@@ -134,15 +128,12 @@ class TransactionsAnalysisState extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Период: конец',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
+                          AppLocalizations.of(context)!.end,
+                        style: Theme.of(context).textTheme.titleSmall
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF2AE881),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           textStyle: TextStyle(),
                         ),
                         onPressed: () async {
@@ -158,11 +149,7 @@ class TransactionsAnalysisState extends StatelessWidget {
                             context,
                             listen: false,
                           ).endDate,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
                         ),
                       ),
                     ],
@@ -177,7 +164,7 @@ class TransactionsAnalysisState extends StatelessWidget {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).cardColor,
                                   border: Border(
                                     bottom: BorderSide(
                                       color: Color(0xFFCAC4D0),
@@ -195,28 +182,21 @@ class TransactionsAnalysisState extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Сумма',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                        AppLocalizations.of(context)!.amount,
+                                        style: Theme.of(context).textTheme.titleSmall
                                       ),
                                       Text(
                                         '${state.totalAmount.toString()} ₽',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                        style: Theme.of(context).textTheme.titleSmall
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              if (state.categListWithTransac.length > 0)
+                              /*if (state.categListWithTransac.length > 0)
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Theme.of(context).cardColor,
                                     border: Border(
                                       bottom: BorderSide(
                                         color: Color(0xFFCAC4D0),
@@ -231,7 +211,7 @@ class TransactionsAnalysisState extends StatelessWidget {
                                     ),
                                     child: Center(child: DonutChart()),
                                   ),
-                                ),
+                                ),*/
                               Expanded(
                                 child: ListView.builder(
                                   itemCount: state.categListWithTransac.length,

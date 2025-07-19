@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../../../l10n/app_localizations.dart';
 import '../create_edit_transac/create_edit_provider.dart';
 import 'bloc/lt_bloc.dart';
 
@@ -36,18 +37,18 @@ class _ListTransactionsState extends State<ListTransactions> {
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 80,
-              backgroundColor: Color(0xFF2AE881),
+              backgroundColor: Theme.of(context).colorScheme.primary,
               title:
                   (!isIncome)
                       ? Text(
-                        'Расходы сегодня',
+                    AppLocalizations.of(context)!.expencesToday,
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w400,
                         ),
                       )
                       : Text(
-                        'Доходы сегодня',
+                    AppLocalizations.of(context)!.incomeToday,
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w400,
@@ -83,7 +84,7 @@ class _ListTransactionsState extends State<ListTransactions> {
                       return Column(
                         children: [
                           Container(
-                            color: Color(0xFFD4FAE6),
+                            color: Theme.of(context).secondaryHeaderColor,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
@@ -94,18 +95,12 @@ class _ListTransactionsState extends State<ListTransactions> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Всего',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                      AppLocalizations.of(context)!.amount,
+                                    style: Theme.of(context).textTheme.titleLarge
                                   ),
                                   Text(
                                     '${state.totalAmount.toString()} ₽',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style: Theme.of(context).textTheme.titleLarge
                                   ),
                                 ],
                               ),
@@ -117,7 +112,7 @@ class _ListTransactionsState extends State<ListTransactions> {
                               itemBuilder: (context, index) {
                                 return Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Theme.of(context).cardColor,
                                     border: Border.symmetric(
                                       horizontal: BorderSide(
                                         color: Color(0xFFCAC4D0),
@@ -127,7 +122,7 @@ class _ListTransactionsState extends State<ListTransactions> {
                                   ),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
+                                      backgroundColor: Theme.of(context).cardColor,
                                       elevation: 0,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(0),
@@ -159,11 +154,7 @@ class _ListTransactionsState extends State<ListTransactions> {
                                             Container(width: 15),
                                             Text(
                                               list_categ[index].name,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                              style: Theme.of(context).textTheme.titleSmall,
                                             ),
                                           ],
                                         ),
@@ -171,11 +162,7 @@ class _ListTransactionsState extends State<ListTransactions> {
                                           children: [
                                             Text(
                                               '${list_trans[index].amount} ₽',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                              style: Theme.of(context).textTheme.titleSmall,
                                             ),
                                             Container(width: 20),
                                             Icon(
@@ -201,7 +188,7 @@ class _ListTransactionsState extends State<ListTransactions> {
               height: 80,
               child: FloatingActionButton(
                 elevation: 0,
-                backgroundColor: Color(0xFF2AE881),
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 onPressed: () {
                   Provider.of<CreateEditProvider>(
                     context,

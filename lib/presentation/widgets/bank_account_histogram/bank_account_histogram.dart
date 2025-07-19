@@ -6,19 +6,23 @@ import 'package:provider/provider.dart';
 import 'package:ya_finance_app/data/repositories_impl/transactions_repository_impl.dart';
 
 import '../../../data/repositories_impl/transactions_mock.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../pages/bank_account_page/account_provider.dart';
 import '../../pages/bank_account_page/bloc_histo/histo_bloc.dart';
 
 class ChartScreen extends StatefulWidget {
   final Map<String, double> values;
   final BuildContext context;
+
   const ChartScreen({super.key, required this.values, required this.context});
 
   @override
-  State<ChartScreen> createState() => _ChartScreenState(values: values, ccontext: context);
+  State<ChartScreen> createState() =>
+      _ChartScreenState(values: values, ccontext: context);
 }
 
-class _ChartScreenState extends State<ChartScreen> with TickerProviderStateMixin {
+class _ChartScreenState extends State<ChartScreen>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late int showingTooltip;
   final Map<String, double> values;
@@ -63,14 +67,20 @@ class _ChartScreenState extends State<ChartScreen> with TickerProviderStateMixin
                 builder: (context, child) {
                   return BarChart(
                     BarChartData(
-                      maxY: values.values.toList().map((n) => n.abs()).toList().reduce(max),
+                      maxY: values.values
+                          .toList()
+                          .map((n) => n.abs())
+                          .toList()
+                          .reduce(max),
                       alignment: BarChartAlignment.spaceAround,
                       groupsSpace: 4,
                       barTouchData: BarTouchData(
                         enabled: true,
                         handleBuiltInTouches: false,
                         touchCallback: (event, response) {
-                          if (response != null && response.spot != null && event is FlTapUpEvent) {
+                          if (response != null &&
+                              response.spot != null &&
+                              event is FlTapUpEvent) {
                             setState(() {
                               final x = response.spot!.touchedBarGroup.x;
                               final isShowing = showingTooltip == x;
@@ -91,7 +101,13 @@ class _ChartScreenState extends State<ChartScreen> with TickerProviderStateMixin
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 '${values.keys.toList()[value.toInt()]}',
-                                style: const TextStyle(fontSize: 11),
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color:
+                                      Theme.of(
+                                        context,
+                                      ).textTheme.titleSmall!.color,
+                                ),
                               );
                             },
                             reservedSize: 30,
@@ -124,24 +140,40 @@ class _ChartScreenState extends State<ChartScreen> with TickerProviderStateMixin
                 setState(() {
                   for (int i = 0; i < _isSelected.length; i++) {
                     _isSelected[i] = (i == index);
-                    if (!_isSelected[0]){
-                      Provider.of<AccountProvider>(ccontext, listen: false).changetype('month');
-                    }
-                    else {
-                      Provider.of<AccountProvider>(ccontext, listen: false).changetype('day');
+                    if (!_isSelected[0]) {
+                      Provider.of<AccountProvider>(
+                        ccontext,
+                        listen: false,
+                      ).changetype('month');
+                    } else {
+                      Provider.of<AccountProvider>(
+                        ccontext,
+                        listen: false,
+                      ).changetype('day');
                     }
                   }
-                }
-                );
+                });
                 _updateChart();
               },
-              children: const [
-                Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Text('По дням', style: TextStyle(fontSize: 20),)),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Text('По месяцам', style: TextStyle(fontSize: 20),)),
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    AppLocalizations.of(context)!.byDay,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    AppLocalizations.of(context)!.byMonth,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
               ],
               borderRadius: BorderRadius.circular(8),
               selectedColor: Colors.white,
-              fillColor: Color(0xFF2AE881),
+              fillColor: Theme.of(context).colorScheme.primary,
               color: Colors.grey,
               //constraints: BoxConstraints(minHeight: 40, minWidth: 80),
             ),
@@ -159,7 +191,10 @@ class _ChartScreenState extends State<ChartScreen> with TickerProviderStateMixin
         x: index,
         barRods: [
           BarChartRodData(
-            color: (values[index].abs() == values[index]) ? Color(0xFF2AE881) : Color(0xFFFF5F00),
+            color:
+                (values[index].abs() == values[index])
+                    ? Color(0xFF2AE881)
+                    : Color(0xFFFF5F00),
             toY: values[index].abs(),
             width: 10,
           ),

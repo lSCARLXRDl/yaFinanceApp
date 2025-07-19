@@ -26,16 +26,14 @@ class HomeTabsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (tab != null) {
-      final theme = Theme.of(context);
       return Scaffold(
         body: child,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: tab!.index,
-          type: theme.bottomNavigationBarTheme.type,
-          backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
-          selectedItemColor: theme.hintColor,
-          showUnselectedLabels:
-              theme.bottomNavigationBarTheme.showUnselectedLabels,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          selectedItemColor: Theme.of(context).hintColor,
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 14,
@@ -51,50 +49,50 @@ class HomeTabsPage extends StatelessWidget {
               icon: 'lib/assets/icons/expenses.svg',
               backColor:
                   tab!.index == 0
-                      ? Color(0xFFD4FAE6)
-                      : theme.bottomNavigationBarTheme.backgroundColor,
+                      ? Theme.of(context).secondaryHeaderColor
+                      : Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               iconColor:
-                  tab!.index == 0 ? theme.primaryColor : Color(0xFF49454F),
+                  tab!.index == 0 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
               label: 'Доходы',
               icon: 'lib/assets/icons/income.svg',
               backColor:
                   tab!.index == 1
-                      ? Color(0xFFD4FAE6)
-                      : theme.bottomNavigationBarTheme.backgroundColor,
+                      ? Theme.of(context).secondaryHeaderColor
+                      : Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               iconColor:
-                  tab!.index == 1 ? theme.primaryColor : Color(0xFF49454F),
+                  tab!.index == 1 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
               label: 'Счёт',
               icon: 'lib/assets/icons/bank_account.svg',
               backColor:
                   tab!.index == 2
-                      ? Color(0xFFD4FAE6)
-                      : theme.bottomNavigationBarTheme.backgroundColor,
+                      ? Theme.of(context).secondaryHeaderColor
+                      : Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               iconColor:
-                  tab!.index == 2 ? theme.primaryColor : Color(0xFF49454F),
+                  tab!.index == 2 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
               label: 'Статьи',
               icon: 'lib/assets/icons/articles.svg',
               backColor:
                   tab!.index == 3
-                      ? Color(0xFFD4FAE6)
-                      : theme.bottomNavigationBarTheme.backgroundColor,
+                      ? Theme.of(context).secondaryHeaderColor
+                      : Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               iconColor:
-                  tab!.index == 3 ? theme.primaryColor : Color(0xFF49454F),
+                  tab!.index == 3 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
               label: 'Настройки',
               icon: 'lib/assets/icons/settings.svg',
               backColor:
                   tab!.index == 4
-                      ? Color(0xFFD4FAE6)
-                      : theme.bottomNavigationBarTheme.backgroundColor,
+                      ? Theme.of(context).secondaryHeaderColor
+                      : Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               iconColor:
-                  tab!.index == 4 ? theme.primaryColor : Color(0xFF49454F),
+                  tab!.index == 4 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
           ],
         ),

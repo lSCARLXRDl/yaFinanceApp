@@ -41,7 +41,7 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
       final response = await _dioClient.get(
         'categories/type/$isIncome',
       );
-      final List<dynamic> data = response.data;
+      final List<dynamic> data = response;
       final cat = data.map((json) => CategoryMapper.fromDto(CategoryDto.fromJson(json))).toList();
       return cat;
     } on DioException catch (e) {

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/data/database/category_db.dart';
 import 'package:ya_finance_app/data/repositories_impl/categories_repository_impl.dart';
+import 'package:ya_finance_app/presentation/widgets/haptick/haptick_provider.dart';
 
 import 'data/api/api_client.dart';
 import 'data/database/transaction_db.dart';

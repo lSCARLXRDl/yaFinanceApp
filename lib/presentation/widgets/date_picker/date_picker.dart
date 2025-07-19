@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 class DatePickerDialog extends StatefulWidget {
   final DateTime? initialDate;
   final DateTime firstDate;
@@ -87,7 +89,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xFFD4FAE6),
+          color: Theme.of(context).secondaryHeaderColor,
           borderRadius: BorderRadius.circular(18)
         ),
         padding: const EdgeInsets.all(16),
@@ -145,16 +147,16 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
               ],
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('Пн', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Вт', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Ср', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Чт', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Пт', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Сб', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Вс', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.pn, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.vt, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.sr, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.cht, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.pt, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.sb, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.vs, style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(height: 8),
@@ -178,7 +180,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                   onTap: () => _onDateSelected(date),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: isSelected ? Colors.blue : null,
+                      color: isSelected ? Theme.of(context).colorScheme.primary : null,
                       shape: BoxShape.circle,
                     ),
                     alignment: Alignment.center,
@@ -205,13 +207,13 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                   onPressed: () {
                     Navigator.pop(context, null);
                   },
-                  child: const Text('Очистить'),
+                  child: Text(AppLocalizations.of(context)!.clear),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Отмена'),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                 ),
                 TextButton(
                   onPressed: () {
@@ -255,11 +257,11 @@ void _showAlertDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text("Выбраная дата недоступна"),
+        title: Text(AppLocalizations.of(context)!.dateUnavailable),
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-                backgroundColor: Color(0xFF2AE881)
+                backgroundColor: Theme.of(context).secondaryHeaderColor
             ),
             onPressed: () => Navigator.pop(context),
             child: const Text("ОК", style: TextStyle(color: Colors.black),),
