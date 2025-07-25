@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ya_finance_app/data/repositories_impl/bank_account_repository_impl.dart';
 import 'package:ya_finance_app/domain/models/bank_account.dart';
 
+import '../../../data/api/api_client.dart';
 import '../../../l10n/app_localizations.dart';
 
 final getIt = GetIt.instance;
@@ -14,7 +15,7 @@ Future<Map<String, dynamic>> showAccountPicker(BuildContext context) async {
   int? _accId = null;
   late var list_acc;
   if (await hasRealInternet()) {
-    list_acc = await BankAccountRepositoryImpl().getBankAccounts();
+    list_acc = await BankAccountRepositoryImpl(getIt<ApiClient>()).getBankAccounts();
   }
   else {
     list_acc = [BankAccount(id: 1, userid: 1, name: 'Основной счёт', balance: "13255", currency: "RUB", createdAt: DateTime.now(), updatedAt: DateTime.now())];

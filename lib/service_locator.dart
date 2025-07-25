@@ -22,7 +22,7 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<TransactionDb>(() => TransactionDb());
   getIt.registerLazySingleton<CategoryDb>(() => CategoryDb());
 
-  getIt.registerLazySingleton<BankAccountRepositoryImpl>(() => BankAccountRepositoryImpl());
+  getIt.registerLazySingleton<BankAccountRepositoryImpl>(() => BankAccountRepositoryImpl(ApiClient()));
   getIt.registerLazySingleton<CategoriesRepositoryImpl>(() => CategoriesRepositoryImpl());
   getIt.registerLazySingleton<TransactionsRepositoryImpl>(() => TransactionsRepositoryImpl());
 }

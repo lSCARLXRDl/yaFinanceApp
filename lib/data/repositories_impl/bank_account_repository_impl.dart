@@ -7,6 +7,7 @@ import 'package:ya_finance_app/data/models/shared/account.dart';
 import '../../domain/models/account_history_response.dart';
 import '../../domain/models/bank_account.dart';
 import '../../domain/repositories/bank_account.dart';
+import '../api/iapi_client.dart';
 import '../mappers/account_history_response_map.dart';
 import '../models/request/account_create_request.dart';
 import '../models/request/account_update_request.dart';
@@ -15,12 +16,13 @@ import '../models/response/account_history_response.dart';
 final getIt = GetIt.instance;
 
 class BankAccountRepositoryImpl implements BankAccountRepository {
-  final ApiClient _dioClient = getIt<ApiClient>();
+  final IApiClient dioClient;
+  BankAccountRepositoryImpl(IApiClient this.dioClient);
 
   @override
   Future<BankAccount> getBankAccountById() async {
     try {
-      final response = await _dioClient.get(
+      final response = await dioClient.get(
         'accounts',
       );
       final List<dynamic> data = response;
@@ -34,7 +36,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
   @override
   Future<List<BankAccount>> getBankAccounts() async {
     try {
-      final response = await _dioClient.get(
+      final response = await dioClient.get(
         'accounts',
       );
       final List<dynamic> data = response;
@@ -48,7 +50,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
   @override
   Future<BankAccount> updateBankAccount({required int id, required AccountUpdateRequestDto request}) async {
     try {
-      final response = await _dioClient.put(
+      final response = await dioClient.put(
           'accounts/$id',
           data: {
             "name": request.name,
@@ -65,7 +67,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
   @override
   Future<BankAccount> createBankAccount({required AccountCreateRequestDto request}) async {
     try {
-      final response = await _dioClient.post(
+      final response = await dioClient.post(
           'accounts',
           data: {
             "name": request.name,
@@ -82,7 +84,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
   @override
   Future<bool> deleteBankAccount({required int id}) async {
     try {
-      final response = await _dioClient.delete(
+      final response = await dioClient.delete(
         'accounts/$id',
       );
       return true;
@@ -94,7 +96,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
   @override
   Future<AccountHistoryResponse> getHistoryBankAccount({required int id}) async {
     try {
-      final response = await _dioClient.get(
+      final response = await dioClient.get(
         'accounts/$id/history',
       );
       final data = response;
