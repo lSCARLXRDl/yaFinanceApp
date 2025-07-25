@@ -34,7 +34,7 @@ class BaPageBloc extends Bloc<BaPageEvent, BaPageState> {
         emit(BaPageLoading());
       }
       if (await hasRealInternet()) {
-        final account = await account_repo.getBankAccountById();
+        final account = await account_repo.getBankAccountById(id: 149);
         db_account_repo.updateBankAccount(balance: account.balance, currency: account.currency, name: account.name);
       }
 

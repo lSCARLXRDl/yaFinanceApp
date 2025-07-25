@@ -4,9 +4,8 @@ import 'package:worker_manager/worker_manager.dart';
 
 import '../../domain/models/category.dart';
 import '../../domain/models/transaction_response.dart';
-import 'iapi_client.dart';
 
-class ApiClient implements IApiClient{
+class ApiClient{
   final Dio _dio;
 
   ApiClient() : _dio = Dio() {
@@ -70,7 +69,6 @@ class ApiClient implements IApiClient{
     return json;
   }
 
-  @override
   Future<T> get<T>(String path, {
     Map<String, dynamic>? queryParams,
     Options? options,
@@ -83,7 +81,6 @@ class ApiClient implements IApiClient{
     return response.data as T;
   }
 
-  @override
   Future<T> post<T>(
       String path, {
         dynamic data,
@@ -105,7 +102,6 @@ class ApiClient implements IApiClient{
     return response.data as T;
   }
 
-  @override
   Future<T> put<T>(
       String path, {
         dynamic data,
@@ -127,7 +123,6 @@ class ApiClient implements IApiClient{
     return response.data as T;
   }
 
-  @override
   Future<T> delete<T>(
       String path, {
         dynamic data,

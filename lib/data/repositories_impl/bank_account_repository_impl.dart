@@ -7,7 +7,6 @@ import 'package:ya_finance_app/data/models/shared/account.dart';
 import '../../domain/models/account_history_response.dart';
 import '../../domain/models/bank_account.dart';
 import '../../domain/repositories/bank_account.dart';
-import '../api/iapi_client.dart';
 import '../mappers/account_history_response_map.dart';
 import '../models/request/account_create_request.dart';
 import '../models/request/account_update_request.dart';
@@ -16,11 +15,11 @@ import '../models/response/account_history_response.dart';
 final getIt = GetIt.instance;
 
 class BankAccountRepositoryImpl implements BankAccountRepository {
-  final IApiClient dioClient;
-  BankAccountRepositoryImpl(IApiClient this.dioClient);
+  final ApiClient dioClient;
+  BankAccountRepositoryImpl(ApiClient this.dioClient);
 
   @override
-  Future<BankAccount> getBankAccountById() async {
+  Future<BankAccount> getBankAccountById({required int id}) async {
     try {
       final response = await dioClient.get(
         'accounts',
@@ -100,7 +99,6 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
         'accounts/$id/history',
       );
       final data = response;
-      print(AccountHistoryResponseDto.fromJson(data));
       return AccountHistoryResponseMapper.fromDto(AccountHistoryResponseDto.fromJson(data));
     } on DioException catch (e) {
       throw Exception('Failed: ${e.message}');
