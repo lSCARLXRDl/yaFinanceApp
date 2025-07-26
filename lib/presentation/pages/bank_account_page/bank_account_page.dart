@@ -20,6 +20,8 @@ import 'account_provider.dart';
 import 'bloc/ba_page_bloc.dart';
 import 'package:shake/shake.dart';
 
+final getIt = GetIt.instance;
+
 class BankAccountPage extends StatefulWidget {
   const BankAccountPage({super.key});
 
@@ -29,7 +31,7 @@ class BankAccountPage extends StatefulWidget {
 
 class _BankAccountPageState extends State<BankAccountPage> {
   final _baPageBloc = BaPageBloc(
-    BankAccountRepositoryImpl(),
+    BankAccountRepositoryImpl(getIt<ApiClient>()),
     DBAccountRepository(),
   );
   final _histoBloc = HistoBloc(TransactionsRepositoryImpl());

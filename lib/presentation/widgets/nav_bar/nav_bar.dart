@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 enum HomeTab {
   expenses,
   income,
@@ -45,7 +47,7 @@ class HomeTabsPage extends StatelessWidget {
           onTap: (index) => onTap(HomeTab.byIndex(index)),
           items: [
             AppBarItem(
-              label: 'Расходы',
+              label: AppLocalizations.of(context)!.expenses,
               icon: 'lib/assets/icons/expenses.svg',
               backColor:
                   tab!.index == 0
@@ -55,7 +57,7 @@ class HomeTabsPage extends StatelessWidget {
                   tab!.index == 0 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
-              label: 'Доходы',
+              label: AppLocalizations.of(context)!.income,
               icon: 'lib/assets/icons/income.svg',
               backColor:
                   tab!.index == 1
@@ -65,7 +67,7 @@ class HomeTabsPage extends StatelessWidget {
                   tab!.index == 1 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
-              label: 'Счёт',
+              label: AppLocalizations.of(context)!.bankAcc,
               icon: 'lib/assets/icons/bank_account.svg',
               backColor:
                   tab!.index == 2
@@ -75,7 +77,7 @@ class HomeTabsPage extends StatelessWidget {
                   tab!.index == 2 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
-              label: 'Статьи',
+              label: AppLocalizations.of(context)!.articles,
               icon: 'lib/assets/icons/articles.svg',
               backColor:
                   tab!.index == 3
@@ -85,7 +87,7 @@ class HomeTabsPage extends StatelessWidget {
                   tab!.index == 3 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             ).toBottomNavigationBarItem(),
             AppBarItem(
-              label: 'Настройки',
+              label: AppLocalizations.of(context)!.settings,
               icon: 'lib/assets/icons/settings.svg',
               backColor:
                   tab!.index == 4

@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,11 +51,11 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-        create: (_) => ThemeProvider(),
-        child: ChangeNotifierProvider(
-            create: (_) => LocaleProvider(),
-            child: FinanceApp()
-        )
+      create: (_) => ThemeProvider(),
+      child: ChangeNotifierProvider(
+        create: (_) => LocaleProvider(),
+        child: FinanceApp(),
+      ),
     ),
   );
 }
@@ -65,44 +67,70 @@ class FinanceApp extends StatefulWidget {
   State<FinanceApp> createState() => _FinanceAppState();
 }
 
-class _FinanceAppState extends State<FinanceApp> {
+class _FinanceAppState extends State<FinanceApp> with WidgetsBindingObserver {
+  bool _shouldBlur = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      BlurHandler.enableBlur();
-    } else if (state == AppLifecycleState.resumed) {
-      BlurHandler.disableBlur();
-    }
+    setState(() {
+      _shouldBlur =
+          state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return ChangeNotifierProvider(
-        create: (_) => AuthProvider(),
-        child: ChangeNotifierProvider(
-          create: (_) => AccountProvider(),
-          child: ChangeNotifierProvider(
-            create: (_) => CreateEditProvider(),
-            child: ChangeNotifierProvider(
-              create: (_) => HaptickProvider(),
-              child: MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: 'Finance App',
-                theme: themeProvider.getTheme(context),
-                routerConfig: router,
-                localizationsDelegates: [
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  AppLocalizations.delegate,
-                ],
-                locale: Provider.of<LocaleProvider>(context).locale,
-                supportedLocales: [Locale('en'), Locale('ru')],
-              ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => AccountProvider()),
+        ChangeNotifierProvider(create: (_) => CreateEditProvider()),
+        ChangeNotifierProvider(create: (_) => HaptickProvider()),
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'Finance App',
+        theme: themeProvider.getTheme(context),
+        routerConfig: router,
+        localizationsDelegates: [
+          GlobalWidgetsLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          AppLocalizations.delegate,
+        ],
+        locale: Provider.of<LocaleProvider>(context).locale,
+        supportedLocales: [Locale('en'), Locale('ru')],
+        builder: (context, child) {
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: Stack(
+              children: [
+                child!,
+                if (_shouldBlur)
+                  Positioned.fill(
+                    child: BackdropFilter(
+                      filter: ui.ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                      child: Container(),
+                    ),
+                  ),
+              ],
             ),
-          ),
+          );
+        },
       ),
     );
   }

@@ -14,13 +14,6 @@ final getIt = GetIt.instance;
 class CategoriesRepositoryImpl implements CategoriesRepository {
   final ApiClient _dioClient = getIt<ApiClient>();
 
-  final List<CategoryDto> _categoriesList = [
-    CategoryDto(id: 1, name: 'Продукты', emoji: '🥐', isIncome: false),
-    CategoryDto(id: 2, name: 'Зарплата', emoji: '💸', isIncome: true),
-    CategoryDto(id: 3, name: 'Обувь', emoji: '🥾', isIncome: false),
-    CategoryDto(id: 4, name: 'Поступление', emoji: '⬆📈', isIncome: true),
-  ];
-
   @override
   Future<List<Category>> getCategories() async{
     try {

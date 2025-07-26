@@ -5,7 +5,7 @@ import 'package:worker_manager/worker_manager.dart';
 import '../../domain/models/category.dart';
 import '../../domain/models/transaction_response.dart';
 
-class ApiClient {
+class ApiClient{
   final Dio _dio;
 
   ApiClient() : _dio = Dio() {
