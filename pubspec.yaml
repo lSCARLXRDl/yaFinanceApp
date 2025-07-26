@@ -47,6 +47,7 @@ dev_dependencies:
   json_serializable: ^6.9.5
   drift_dev: ^2.26.1
   mocktail: ^1.0.0
+  golden_toolkit: ^0.15.0
 
 flutter:
   generate: true

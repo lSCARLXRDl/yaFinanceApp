@@ -21,7 +21,7 @@ Future<void> main() async {
   group('BankAccountRepositoryImpl', () {
 
     test('successful creation returns BankAccount with the necessary parameters', () async {
-      // Arrange
+
       final request = AccountCreateRequestDto(name: 'Test Account', balance: '100.00', currency: 'USD');
       final mockResponse = AccountDto(
         id: 149,
@@ -94,7 +94,6 @@ Future<void> main() async {
     });
 
     test('successful update returns BankAccount with the necessary parameters', () async {
-      // Arrange
       final request = AccountUpdateRequestDto(name: 'New Test Account', balance: '150.00', currency: 'USD');
       final mockResponse = AccountDto(
         id: 149,
@@ -127,7 +126,6 @@ Future<void> main() async {
     });
 
     test('successful get AccountHistory by id with the necessary parameters', () async {
-      // Arrange
       final mockAccountStatePrev = {
         'id': 149,
         'name': 'Test Account',
